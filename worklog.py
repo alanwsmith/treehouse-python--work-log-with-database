@@ -1,6 +1,8 @@
 """Worklog with a database back end
 """
 
+import re
+
 class Worklog:
 
     def main_prompt(self):
@@ -17,6 +19,20 @@ class Worklog:
         pass on to other methods for validaiton.
         """
         input("> ")
+
+    def validate_main_prompt_input(self, test_string):
+        """Make sure a value of '1' or '2' was passed
+
+        >>> wl = Worklog()
+        >>> wl.validate_main_prompt_input("1")
+        True
+
+        """
+        pattern = re.compile("^1$")
+        if pattern.match(test_string):
+            return True 
+        
+        
 
 
 if __name__ == "__main__":
