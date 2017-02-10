@@ -50,6 +50,17 @@ class Worklog:
         # TODO: Validate each item above
         # TODO: Send to database after validation.
 
+    def how_to_find_previous_entries_prompt(self):
+        """Prompt for how to search for previous entries
+
+        >>> wl = Worklog()
+        >>> wl.how_to_find_previous_entries_prompt()
+        'How do you want to find previous entries?\\n1 = By Employee\\n2 = By Date\\n3 = By Search Term'
+
+        """
+        return "How do you want to find previous entries?\n1 = By Employee\n2 = By Date\n3 = By Search Term"
+        
+
 
 
 if __name__ == "__main__":
