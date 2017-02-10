@@ -13,6 +13,14 @@ class Worklog:
         """
         print("1 = Add\n2 = Lookup")
 
+    def ask_for_input(self):
+        """Generic method to gather user input to
+        pass on to other methods for validaiton.
+        """
+        input("> ")
+
+
+
 
 if __name__ == "__main__":
     import doctest
@@ -23,4 +31,5 @@ if __name__ == "__main__":
         print("--- Tests Passed ---\n")
         wl = Worklog()
         wl.main_prompt()
+        wl.ask_for_input()
 
