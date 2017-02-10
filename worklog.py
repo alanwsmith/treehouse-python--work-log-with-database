@@ -26,13 +26,18 @@ class Worklog:
         >>> wl = Worklog()
         >>> wl.validate_main_prompt_input("1")
         True
+        >>> wl.validate_main_prompt_input("2")
+        True
+        >>> wl.validate_main_prompt_input("asdfasdf")
+        False
 
         """
-        pattern = re.compile("^1$")
+        pattern = re.compile("^(1|2)$")
         if pattern.match(test_string):
             return True 
-        
-        
+        else:
+            return False
+
 
 
 if __name__ == "__main__":
