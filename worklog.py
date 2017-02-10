@@ -27,5 +27,5 @@ if __name__ == "__main__":
         print("--- Tests Passed ---\n")
         wl = Worklog()
         print(wl.main_prompt())
-        wl.ask_for_input()
+        # wl.ask_for_input()
 
