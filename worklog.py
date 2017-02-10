@@ -66,12 +66,20 @@ class Worklog:
         >>> wl = Worklog()
         >>> wl.validate_how_to_find_previous_entries_prompt("1")
         True
+        >>> wl.validate_how_to_find_previous_entries_prompt("2")
+        True
+        >>> wl.validate_how_to_find_previous_entries_prompt("3")
+        True
+        >>> wl.validate_how_to_find_previous_entries_prompt("invalid value")
+        False
 
         """
 
-        pattern = re.compile("^(1)$")
+        pattern = re.compile("^[1-3]$")
         if pattern.match(test_string):
             return True
+        else:
+            return False
 
 
 
