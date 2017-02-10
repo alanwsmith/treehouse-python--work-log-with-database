@@ -60,6 +60,19 @@ class Worklog:
         else:
             return False
 
+    def validate_how_to_find_previous_entries_prompt(self, test_string):
+        """Make sure the value passed is either a 1, 2, or 3
+
+        >>> wl = Worklog()
+        >>> wl.validate_how_to_find_previous_entries_prompt("1")
+        True
+
+        """
+
+        pattern = re.compile("^(1)$")
+        if pattern.match(test_string):
+            return True
+
 
 
 if __name__ == "__main__":
