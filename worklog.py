@@ -8,10 +8,9 @@ class Worklog:
         
         >>> wl = Worklog()
         >>> wl.main_prompt()
-        1 = Add
-        2 = Lookup
+        '1 = Add\\n2 = Lookup'
         """
-        print("1 = Add\n2 = Lookup")
+        return("1 = Add\n2 = Lookup")
 
     def ask_for_input(self):
         """Generic method to gather user input to
@@ -20,16 +19,13 @@ class Worklog:
         input("> ")
 
 
-
-
 if __name__ == "__main__":
     import doctest
-    doctest.testmod()
     if doctest.testmod().failed:
         print("--- Tests Failed ---")
     else:
         print("--- Tests Passed ---\n")
         wl = Worklog()
-        wl.main_prompt()
+        print(wl.main_prompt())
         wl.ask_for_input()
 
