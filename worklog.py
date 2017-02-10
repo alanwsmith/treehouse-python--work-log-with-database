@@ -38,6 +38,18 @@ class Worklog:
         else:
             return False
 
+    def get_new_entry_data(self):
+        print("What is your name?")
+        name = self.ask_for_input() 
+        print("What is the name of your task?")
+        task = self.ask_for_input() 
+        print("How long did you spend on it?")
+        time_spent = self.ask_for_input() 
+        print("Add more notes here or just hit Enter/Return to continue")
+        notes = self.ask_for_input() 
+        # TODO: Validate each item above
+        # TODO: Send to database after validation.
+
 
 
 if __name__ == "__main__":
@@ -49,4 +61,6 @@ if __name__ == "__main__":
         wl = Worklog()
         print(wl.main_prompt())
         # wl.ask_for_input()
+        wl.get_new_entry_data()
+
 
