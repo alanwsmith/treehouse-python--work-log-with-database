@@ -61,6 +61,6 @@ if __name__ == "__main__":
         wl = Worklog()
         print(wl.main_prompt())
         # wl.ask_for_input()
-        wl.get_new_entry_data()
+        # wl.get_new_entry_data()
 
 
