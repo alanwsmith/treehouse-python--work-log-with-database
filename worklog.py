@@ -200,6 +200,10 @@ if __name__ == "__main__":
     if doctest.testmod().failed:
         print("--- Tests Failed ---")
     else:
+
+        print("--- Tests Passed ---")
+        exit()
+
         wl = Worklog()
         print("What would you like to do?") 
         wl.display_main_prompt()
