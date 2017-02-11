@@ -18,6 +18,19 @@ class Worklog:
         """
         input("> ")
 
+    def build_database_tables(self):
+        """Create the actual database tables
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database("test.db")
+        >>> wl.build_database_tables()
+        True
+
+        """
+
+        return True
+
+
     def connect_to_database(self, database_name):
         """Make the database connection
 
