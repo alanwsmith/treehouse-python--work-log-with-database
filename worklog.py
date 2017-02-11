@@ -32,11 +32,12 @@ class Worklog:
         """Create the actual database tables
 
         >>> wl = Worklog()
-        >>> wl.connect_to_database("test.db")
+        >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
 
         """
+
         self.db.create_tables([Task], safe=True) 
         return Task.table_exists()
 
