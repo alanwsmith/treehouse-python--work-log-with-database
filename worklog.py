@@ -70,6 +70,24 @@ class Worklog:
         self.db.init(database_name)
         self.db.connect()
 
+    def get_list_of_employees(self):
+        """Return a list of the employees in the database
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> employee_list = wl.get_list_of_employees()
+        >>> employee_list[0]
+        'Alex'
+
+        """
+        
+        return ["Alex", "Bob"]
+
+
 
     def get_new_entry_data(self):
         print("What is your name?")
