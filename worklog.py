@@ -41,7 +41,7 @@ class Worklog:
         """Generic method to gather user input to
         pass on to other methods for validaiton.
         """
-        input("> ")
+        return input("> ")
 
     def build_database_tables(self):
         """Create the actual database tables
