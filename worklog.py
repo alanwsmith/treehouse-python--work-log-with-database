@@ -22,7 +22,7 @@ class Worklog:
         """Make the database connection
 
         >>> wl = Worklog()
-        >>> wl.connect_to_database("test.db")
+        >>> wl.connect_to_database(":memory:")
         >>> wl.db.is_closed()
         False
 
