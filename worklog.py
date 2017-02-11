@@ -76,6 +76,18 @@ class Worklog:
         self.db.init(database_name)
         self.db.connect()
 
+    def display_add_task_prompt(self):
+        """Show the initial add task_prompt
+
+        >>> wl = Worklog()
+        >>> wl.display_add_task_prompt()
+        What is the name of the employee who performed the task?
+
+        """
+        print("What is the name of the employee who performed the task?")
+
+
+
     def display_main_prompt(self):
         """This is the top level prompt for the interface.
 
@@ -199,6 +211,9 @@ if __name__ == "__main__":
             check_input = wl.ask_for_input()
 
         if check_input == "1":
+            wl.display_add_task_prompt()
+
+
             print("Adding new item")
         elif check_input == "2":
             print("Looking up")
