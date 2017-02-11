@@ -1,6 +1,8 @@
 """Worklog with a database back end
 """
 
+from peewee import *
+
 import re
 
 class Worklog:
@@ -10,6 +12,20 @@ class Worklog:
         pass on to other methods for validaiton.
         """
         input("> ")
+
+    def connect_to_database(self, database_name):
+        """Make the database connection
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database("test.db")
+        >>> wl.db.is_closed()
+        False
+
+        """ 
+
+        self.db = SqliteDatabase(database_name)
+        self.db.connect()
+
 
     def get_new_entry_data(self):
         print("What is your name?")
