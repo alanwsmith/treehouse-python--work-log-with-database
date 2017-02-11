@@ -22,6 +22,20 @@ class Worklog:
     def __init__(self):
         self.db = database_connection 
 
+    def add_task(self, params):
+        """Add an entry to the database
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database("test.db")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> Task.select().count()
+        0
+
+        """
+
+
     def ask_for_input(self):
         """Generic method to gather user input to
         pass on to other methods for validaiton.
