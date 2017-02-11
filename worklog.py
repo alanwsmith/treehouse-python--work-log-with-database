@@ -185,7 +185,14 @@ if __name__ == "__main__":
         print("--- Tests Failed ---")
     else:
         wl = Worklog()
+        print("What would you like to do?") 
         wl.display_main_prompt()
+        while not wl.validate_main_prompt_input(wl.ask_for_input()):
+            wl.clear_screen()
+            print("You must choose either 1 or 2.")
+            wl.display_main_prompt()
+
+
 
         # wl.ask_for_input()
         # wl.get_new_entry_data()
