@@ -5,7 +5,12 @@ from peewee import *
 
 import re
 
+database_connection = SqliteDatabase(None)
+
 class Worklog:
+
+    def __init__(self):
+        self.db = database_connection 
 
     def ask_for_input(self):
         """Generic method to gather user input to
@@ -23,7 +28,7 @@ class Worklog:
 
         """ 
 
-        self.db = SqliteDatabase(database_name)
+        self.db.init(database_name)
         self.db.connect()
 
 
