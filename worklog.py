@@ -150,7 +150,7 @@ class Worklog:
 
         """
         return "How do you want to find previous entries?\n1 = By Employee\n2 = By Date\n3 = By Search Term"
-        
+    
 
     def validate_main_prompt_input(self, test_string):
         """Make sure a value of '1' or '2' was passed
