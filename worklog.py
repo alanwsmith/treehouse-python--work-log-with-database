@@ -84,9 +84,15 @@ class Worklog:
         'Alex'
 
         """
-        
-        return ["Alex", "Bob"]
 
+        employees = []
+
+        for task in Task.select():
+            employees.append(task.employee)
+
+        employees.sort()
+
+        return employees 
 
 
     def get_new_entry_data(self):
