@@ -70,6 +70,20 @@ class Worklog:
         self.db.init(database_name)
         self.db.connect()
 
+    def display_main_prompt(self):
+        """This is the top level prompt for the interface.
+
+        >>> wl = Worklog()
+        >>> wl.display_main_prompt()
+        1. Add a new task.
+        2. Lookup tasks.
+
+        """
+
+        print("1. Add a new task.")
+        print("2. Lookup tasks.")
+
+
     def get_list_of_employees(self):
         """Return a list of the employees in the database
 
@@ -117,14 +131,6 @@ class Worklog:
         """
         return "How do you want to find previous entries?\n1 = By Employee\n2 = By Date\n3 = By Search Term"
         
-    def main_prompt(self):
-        """Return the main prompt value
-        
-        >>> wl = Worklog()
-        >>> wl.main_prompt()
-        '1 = Add\\n2 = Lookup'
-        """
-        return("1 = Add\n2 = Lookup")
 
     def validate_main_prompt_input(self, test_string):
         """Make sure a value of '1' or '2' was passed
@@ -174,7 +180,8 @@ if __name__ == "__main__":
     else:
         print("--- Tests Passed ---\n")
         wl = Worklog()
-        print(wl.main_prompt())
+        wl.display_main_prompt()
+
         # wl.ask_for_input()
         # wl.get_new_entry_data()
 
