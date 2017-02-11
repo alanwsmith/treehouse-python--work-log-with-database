@@ -57,6 +57,12 @@ class Worklog:
         return Task.table_exists()
 
 
+    def clear_screen(self):
+        """Convience method for clearing the screen
+        """
+        print("\033c", end="")
+
+
     def connect_to_database(self, database_name):
         """Make the database connection
 
