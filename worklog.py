@@ -37,8 +37,6 @@ class Worklog:
         new_task = Task.create(**params)
         new_task.save()
 
-
-
     def ask_for_input(self):
         """Generic method to gather user input to
         pass on to other methods for validaiton.
