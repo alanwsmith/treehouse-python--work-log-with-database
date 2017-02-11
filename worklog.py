@@ -81,13 +81,15 @@ class Worklog:
 
         >>> wl = Worklog()
         >>> wl.display_main_prompt()
-        1. Add a new task.
-        2. Lookup tasks.
+        1. Add a new task
+        2. Lookup tasks
+        3. Quit
 
         """
 
-        print("1. Add a new task.")
-        print("2. Lookup tasks.")
+        print("1. Add a new task")
+        print("2. Lookup tasks")
+        print("3. Quit")
 
 
     def get_list_of_employees(self):
@@ -146,11 +148,13 @@ class Worklog:
         True
         >>> wl.validate_main_prompt_input("2")
         True
+        >>> wl.validate_main_prompt_input("3")
+        True
         >>> wl.validate_main_prompt_input("asdfasdf")
         False
 
         """
-        pattern = re.compile("^(1|2)$")
+        pattern = re.compile("^[1-3]$")
         if pattern.match(test_string):
             return True 
         else:
@@ -190,14 +194,17 @@ if __name__ == "__main__":
         check_input = wl.ask_for_input()
         while not wl.validate_main_prompt_input(check_input):
             wl.clear_screen()
-            print("You must choose either 1 or 2.")
+            print("That wasn't a valid option. Try again.")
             wl.display_main_prompt()
             check_input = wl.ask_for_input()
 
         if check_input == "1":
             print("Adding new item")
-        else:
+        elif check_input == "2":
             print("Looking up")
+        else:
+            print("Quitting")
+
 
 
 
