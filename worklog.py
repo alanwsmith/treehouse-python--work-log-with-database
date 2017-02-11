@@ -26,14 +26,17 @@ class Worklog:
         """Add an entry to the database
 
         >>> wl = Worklog()
-        >>> wl.connect_to_database("test.db")
+        >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
         >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "notes": "Good stuff here", "date": "2017-01-01"})
         >>> Task.select().count()
-        0
+        1
 
         """
+        new_task = Task.create(**params)
+        new_task.save()
+
 
 
     def ask_for_input(self):
