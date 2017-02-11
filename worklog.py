@@ -227,9 +227,10 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        exit()
+        # exit()
 
         wl = Worklog()
+        wl.clear_screen()
         print("What would you like to do?") 
         wl.display_main_prompt()
         check_input = wl.ask_for_input()
@@ -241,9 +242,14 @@ if __name__ == "__main__":
 
         if check_input == "1":
             wl.display_add_task_prompt()
+            employee = wl.ask_for_input()
+            while not wl.validate_name(employee):
+                wl.clear_screen()
+                print("Names can only contain letters, spaces, and periods.")
+                print("Names also cannot be empty. Try again.")
+                employee = wl.ask_for_input()
 
 
-            print("Adding new item")
         elif check_input == "2":
             print("Looking up")
         else:
