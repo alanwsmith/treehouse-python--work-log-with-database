@@ -7,6 +7,16 @@ import re
 
 database_connection = SqliteDatabase(None)
 
+
+class Task(Model):
+    employee = CharField()
+    task = CharField()
+    notes = CharField()
+    date = DateField()
+
+    class Meta:
+        database = database_connection
+
 class Worklog:
 
     def __init__(self):
@@ -27,8 +37,8 @@ class Worklog:
         True
 
         """
-
-        return True
+        self.db.create_tables([Task], safe=True) 
+        return Task.table_exists()
 
 
     def connect_to_database(self, database_name):
