@@ -172,6 +172,31 @@ class Worklog:
         else:
             return False
 
+    def validate_name(self, name):
+        """Make sure the name is valid. 
+
+        Letters, spaces, and periods are allowed. 
+        
+        >>> wl = Worklog()
+        >>> wl.validate_name("Bob")
+        True
+        >>> wl.validate_name("A")
+        True
+        >>> wl.validate_name("Alan W. Smith")
+        True
+        >>> wl.validate_name("")
+        False
+        >>> wl.validate_name("Alan1")
+        False
+
+        """
+
+        pattern = re.compile("^[a-zA-Z\s\.]+$")
+        if pattern.match(name):
+            return True
+        else:
+            return False
+
     def validate_how_to_find_previous_entries_prompt(self, test_string):
         """Make sure the value passed is either a 1, 2, or 3
 
