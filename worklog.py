@@ -206,10 +206,5 @@ if __name__ == "__main__":
             print("Quitting")
 
 
-
-
-
-        # wl.ask_for_input()
-        # wl.get_new_entry_data()
-
+    # TODO: Test everything with an empty database too.
 
