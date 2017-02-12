@@ -282,7 +282,10 @@ if __name__ == "__main__":
             wl.display_main_prompt()
             check_input = wl.ask_for_input()
 
+        # Add a new task selected
         if check_input == "1":
+
+            # Get the employee name
             wl.clear_screen()
             wl.display_employee_name_prompt()
             employee = wl.ask_for_input()
@@ -292,6 +295,7 @@ if __name__ == "__main__":
                 print("Names also cannot be empty. Try again.")
                 employee = wl.ask_for_input()
 
+            # Get the task name
             wl.clear_screen()
             wl.display_name_of_task_prompt()
             task = wl.ask_for_input()
@@ -300,6 +304,7 @@ if __name__ == "__main__":
                 print("The task can't be empty. Try again.")
                 task = wl.ask_for_input()
 
+            # Get the date
             wl.clear_screen()
 
 
