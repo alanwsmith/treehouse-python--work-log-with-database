@@ -76,15 +76,16 @@ class Worklog:
         self.db.init(database_name)
         self.db.connect()
 
-    def display_add_task_prompt(self):
+    def display_employee_name_prompt(self):
         """Show the initial add task_prompt
 
         >>> wl = Worklog()
-        >>> wl.display_add_task_prompt()
-        What is the name of the employee who performed the task?
+        >>> wl.display_employee_name_prompt()
+        Who did the task (e.g. Bob)?
+         
 
         """
-        print("What is the name of the employee who performed the task?")
+        print("Who did the task (e.g. Bob)?")
 
 
     def display_date_prompt(self):
@@ -283,7 +284,7 @@ if __name__ == "__main__":
 
         if check_input == "1":
             wl.clear_screen()
-            wl.display_add_task_prompt()
+            wl.display_employee_name_prompt()
             employee = wl.ask_for_input()
             while not wl.validate_name(employee):
                 wl.clear_screen()
