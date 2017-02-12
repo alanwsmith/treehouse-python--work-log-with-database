@@ -103,6 +103,18 @@ class Worklog:
         print("2. Lookup tasks")
         print("3. Quit")
 
+    def display_name_of_task_prompt(self):
+        """Ask for the name of the task
+
+        >>> wl = Worklog()
+        >>> wl.display_name_of_task_prompt()
+        What task was done?
+
+        """
+
+        print("What task was done?")
+
+
 
     def get_list_of_employees(self):
         """Return a list of the employees in the database
@@ -248,6 +260,8 @@ if __name__ == "__main__":
                 print("Names can only contain letters, spaces, and periods.")
                 print("Names also cannot be empty. Try again.")
                 employee = wl.ask_for_input()
+
+            wl.display_name_of_task_prompt()
 
 
         elif check_input == "2":
