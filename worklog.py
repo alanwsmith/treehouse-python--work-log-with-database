@@ -272,6 +272,7 @@ if __name__ == "__main__":
             check_input = wl.ask_for_input()
 
         if check_input == "1":
+            wl.clear_screen()
             wl.display_add_task_prompt()
             employee = wl.ask_for_input()
             while not wl.validate_name(employee):
@@ -280,6 +281,7 @@ if __name__ == "__main__":
                 print("Names also cannot be empty. Try again.")
                 employee = wl.ask_for_input()
 
+            wl.clear_screen()
             wl.display_name_of_task_prompt()
             task = wl.ask_for_input()
             while not wl.validate_task(task):
