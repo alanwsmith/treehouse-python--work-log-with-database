@@ -258,7 +258,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        exit()
+        # exit()
 
         wl = Worklog()
         wl.clear_screen()
@@ -282,6 +282,11 @@ if __name__ == "__main__":
 
             wl.display_name_of_task_prompt()
             task = wl.ask_for_input()
+            while not wl.validate_task(task):
+                wl.clear_screen()
+                print("The task can't be empty. Try again.")
+                task = wl.ask_for_input()
+
 
 
 
