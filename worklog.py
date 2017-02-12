@@ -175,6 +175,24 @@ class Worklog:
         return "How do you want to find previous entries?\n1 = By Employee\n2 = By Date\n3 = By Search Term"
     
 
+    def validate_date(self, date):
+        """Make sure the date is in the proper format
+
+        >>> wl = Worklog()
+        >>> wl.validate_date("2017-01-02")
+        True
+        >>> wl.validate_date("not a date")
+        False
+
+        """
+
+        pattern = re.compile("^\d\d\d\d-\d\d-\d\d$")
+        if pattern.match(date):
+            return True
+        else:
+            return False
+
+
     def validate_main_prompt_input(self, test_string):
         """Make sure a value of '1' or '2' was passed
 
@@ -306,6 +324,12 @@ if __name__ == "__main__":
 
             # Get the date
             wl.clear_screen()
+            wl.display_date_prompt()
+            date = wl.ask_for_input()
+            while not wl.validate_date(date):
+                wl.clear_screen()
+                print("The date must be in the format YYYY-MM-DD. Try again.")
+                date = wl.ask_for_input()
 
 
 
