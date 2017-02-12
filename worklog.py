@@ -87,6 +87,16 @@ class Worklog:
         print("What is the name of the employee who performed the task?")
 
 
+    def display_date_prompt(self):
+        """Prompt for the date
+
+        >>> wl = Worklog()
+        >>> wl.display_date_prompt()
+        What date was the task performed (format: YYYY-MM-DD)?
+
+        """
+        print("What date was the task performed (format: YYYY-MM-DD)?")
+
 
     def display_main_prompt(self):
         """This is the top level prompt for the interface.
@@ -288,6 +298,9 @@ if __name__ == "__main__":
                 wl.clear_screen()
                 print("The task can't be empty. Try again.")
                 task = wl.ask_for_input()
+
+            wl.clear_screen()
+
 
 
 
