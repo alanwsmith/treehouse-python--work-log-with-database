@@ -119,11 +119,11 @@ class Worklog:
 
         >>> wl = Worklog()
         >>> wl.display_name_of_task_prompt()
-        What task was done?
+        What task was done (e.g. Updated database)?
 
         """
 
-        print("What task was done?")
+        print("What task was done (e.g. Updated database)?")
 
 
 
