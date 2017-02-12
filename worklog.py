@@ -209,6 +209,25 @@ class Worklog:
         else:
             return False
 
+    def validate_task(self, task):
+        """Make sure the task is a valid string
+
+        >>> wl = Worklog()
+        >>> wl.validate_task("Did something")
+        True
+        >>> wl.validate_task("Made something with numbers 1235")
+        True
+        >>> wl.validate_task("")
+        False
+
+        """
+
+        if task != "":
+            return True
+        else:
+            return False
+
+
     def validate_how_to_find_previous_entries_prompt(self, test_string):
         """Make sure the value passed is either a 1, 2, or 3
 
@@ -239,7 +258,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        # exit()
+        exit()
 
         wl = Worklog()
         wl.clear_screen()
@@ -262,6 +281,8 @@ if __name__ == "__main__":
                 employee = wl.ask_for_input()
 
             wl.display_name_of_task_prompt()
+            task = wl.ask_for_input()
+
 
 
         elif check_input == "2":
