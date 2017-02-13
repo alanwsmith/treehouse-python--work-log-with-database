@@ -124,6 +124,20 @@ class Worklog:
 
         print("What task was done (e.g. Updated database)?")
 
+    def display_notes_prompt(self):
+        """Ask for optional notes
+
+        >>> wl = Worklog()
+        >>> wl.display_notes_prompt()
+        Enter notes about the task, or just hit Enter/Return to skip them:
+
+        """
+
+        print("Enter notes about the task, or just hit Enter/Return to skip them:")
+
+
+
+
 
 
     def get_list_of_employees(self):
