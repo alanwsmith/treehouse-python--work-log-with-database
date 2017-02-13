@@ -303,6 +303,8 @@ if __name__ == "__main__":
         # exit()
 
         wl = Worklog()
+        wl.connect_to_database("worklog.db")
+        wl.build_database_tables()
         wl.clear_screen()
         print("What would you like to do?") 
         wl.display_main_prompt()
@@ -349,7 +351,8 @@ if __name__ == "__main__":
             wl.display_notes_prompt()
             notes = wl.ask_for_input()
 
-
+            # Add everything to the database.
+            wl.add_task({"employee": employee, "task": task, "notes": notes, "date": date})
 
 
 
