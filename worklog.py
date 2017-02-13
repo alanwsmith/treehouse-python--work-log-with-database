@@ -344,6 +344,11 @@ if __name__ == "__main__":
                 print("The date must be in the format YYYY-MM-DD. Try again.")
                 date = wl.ask_for_input()
 
+            # Get optional notes
+            wl.clear_screen()
+            wl.display_notes_prompt()
+            notes = wl.ask_for_input()
+
 
 
 
