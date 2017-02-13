@@ -76,17 +76,6 @@ class Worklog:
         self.db.init(database_name)
         self.db.connect()
 
-    def display_employee_name_prompt(self):
-        """Show the initial add task_prompt
-
-        >>> wl = Worklog()
-        >>> wl.display_employee_name_prompt()
-        Who did the task (e.g. Bob)?
-         
-
-        """
-        print("Who did the task (e.g. Bob)?")
-
 
     def display_date_prompt(self):
         """Prompt for the date
@@ -98,6 +87,16 @@ class Worklog:
         """
         print("What date was the task performed (format: YYYY-MM-DD)?")
 
+    def display_employee_name_prompt(self):
+        """Show the initial add task_prompt
+
+        >>> wl = Worklog()
+        >>> wl.display_employee_name_prompt()
+        Who did the task (e.g. Bob)?
+         
+
+        """
+        print("Who did the task (e.g. Bob)?")
 
     def display_main_prompt(self):
         """This is the top level prompt for the interface.
