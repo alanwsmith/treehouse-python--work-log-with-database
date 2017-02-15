@@ -350,6 +350,25 @@ if __name__ == "__main__":
                 print("The task can't be empty. Try again.")
                 task = wl.ask_for_input()
 
+            # Get the time
+            wl.clear_screen()
+            wl.display_minutes_prompt()
+            minutes_as_string = wl.ask_for_input()
+            while not wl.validate_minutes(minutes_as_string):
+                wl.clear_screen()
+                print("The number of minutes for the task must be an integer. Try again.")
+                minutes_as_string = wl.ask_for_input()
+
+            minutes = int(minutes_as_string)
+
+
+            
+
+
+
+            # TODO: Remove date from the interface, it should be set automatically.
+
+
             # Get the date
             wl.clear_screen()
             wl.display_date_prompt()
