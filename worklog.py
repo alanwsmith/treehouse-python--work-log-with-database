@@ -114,6 +114,18 @@ class Worklog:
         print("2. Lookup tasks")
         print("3. Quit")
 
+    def display_minutes_prompt(self):
+        """Ask for how many minutes were spent on the task
+
+        >>> wl = Worklog()
+        >>> wl.display_minutes_prompt()
+        How many minutes did you spend on the task?
+
+        """
+
+        print("How many minutes did you spend on the task?")
+
+
     def display_name_of_task_prompt(self):
         """Ask for the name of the task
 
