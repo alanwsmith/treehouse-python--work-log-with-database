@@ -239,6 +239,23 @@ class Worklog:
         else:
             return False
 
+    def validate_minutes(self, minutes_as_string):
+        """Make sure the string sent to minutes will
+        convert to an integer properly
+
+        >>> wl= Worklog()
+        >>> wl.validate_minutes("10")
+        True
+
+        """
+        
+        pattern = re.compile("^\d+$")
+        if pattern.match(minutes_as_string):
+            return True
+
+
+
+
     def validate_name(self, name):
         """Make sure the name is valid. 
 
