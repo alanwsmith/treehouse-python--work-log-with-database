@@ -246,12 +246,16 @@ class Worklog:
         >>> wl= Worklog()
         >>> wl.validate_minutes("10")
         True
+        >>> wl.validate_minutes("asdf")
+        False
 
         """
         
         pattern = re.compile("^\d+$")
         if pattern.match(minutes_as_string):
             return True
+        else:
+            return False
 
 
 
