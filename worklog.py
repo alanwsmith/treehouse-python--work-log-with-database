@@ -428,6 +428,16 @@ if __name__ == "__main__":
                 wl.display_lookup_prompt()
                 lookup_type = wl.ask_for_input()
 
+            if lookup_type == "1":
+                print("TODO: Lookup by employee")
+            elif lookup_type == "2":
+                print("TODO: Lookup by date")
+            elif lookup_type == "3":
+                print("TODO: Lookup by search term")
+            else:
+                # This should never occur.
+                print("ERROR: Lookup type is broken.")
+            
 
             
         else:
