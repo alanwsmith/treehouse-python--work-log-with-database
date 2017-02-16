@@ -171,11 +171,6 @@ class Worklog:
 
         print("Enter notes about the task, or just hit Enter/Return to skip them:")
 
-
-
-
-
-
     def get_list_of_employees(self):
         """Return a list of the employees in the database
 
@@ -185,9 +180,12 @@ class Worklog:
         True
         >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
         >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> employee_list = wl.get_list_of_employees()
         >>> employee_list[0]
         'Alex'
+        >>> employee_list[1]
+        'Bob'
 
         """
 
@@ -198,7 +196,7 @@ class Worklog:
 
         employees.sort()
 
-        return employees 
+        return list(set(employees)) 
 
 
     def get_new_entry_data(self):
@@ -445,6 +443,8 @@ if __name__ == "__main__":
 
             if lookup_type == "1":
                 wl.clear_screen()
+                wl.display_employee_selection_prompt(wl.get_list_of_employees())
+
                 #wl.dispay_employee_selection()
 
             elif lookup_type == "2":
