@@ -2,6 +2,7 @@
 """
 
 from peewee import *
+from time import gmtime, strftime
 
 import re
 
@@ -9,10 +10,11 @@ database_connection = SqliteDatabase(None)
 
 
 class Task(Model):
-    employee = CharField()
-    task = CharField()
-    notes = CharField()
     date = DateField()
+    employee = CharField(max_length=255)
+    minutes = IntegerField()
+    notes = TextField()
+    task = CharField(max_length=255)
 
     class Meta:
         database = database_connection
@@ -29,7 +31,7 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 10, "notes": "Good stuff here", "date": "2017-01-01"})
         >>> Task.select().count()
         1
 
@@ -113,6 +115,18 @@ class Worklog:
         print("2. Lookup tasks")
         print("3. Quit")
 
+    def display_minutes_prompt(self):
+        """Ask for how many minutes were spent on the task
+
+        >>> wl = Worklog()
+        >>> wl.display_minutes_prompt()
+        How many minutes did you spend on the task?
+
+        """
+
+        print("How many minutes did you spend on the task?")
+
+
     def display_name_of_task_prompt(self):
         """Ask for the name of the task
 
@@ -147,8 +161,8 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> employee_list = wl.get_list_of_employees()
         >>> employee_list[0]
         'Alex'
@@ -225,6 +239,27 @@ class Worklog:
             return True 
         else:
             return False
+
+    def validate_minutes(self, minutes_as_string):
+        """Make sure the string sent to minutes will
+        convert to an integer properly
+
+        >>> wl= Worklog()
+        >>> wl.validate_minutes("10")
+        True
+        >>> wl.validate_minutes("asdf")
+        False
+
+        """
+        
+        pattern = re.compile("^\d+$")
+        if pattern.match(minutes_as_string):
+            return True
+        else:
+            return False
+
+
+
 
     def validate_name(self, name):
         """Make sure the name is valid. 
@@ -337,14 +372,16 @@ if __name__ == "__main__":
                 print("The task can't be empty. Try again.")
                 task = wl.ask_for_input()
 
-            # Get the date
+            # Get the time
             wl.clear_screen()
-            wl.display_date_prompt()
-            date = wl.ask_for_input()
-            while not wl.validate_date(date):
+            wl.display_minutes_prompt()
+            minutes_as_string = wl.ask_for_input()
+            while not wl.validate_minutes(minutes_as_string):
                 wl.clear_screen()
-                print("The date must be in the format YYYY-MM-DD. Try again.")
-                date = wl.ask_for_input()
+                print("The number of minutes for the task must be an integer. Try again.")
+                minutes_as_string = wl.ask_for_input()
+
+            minutes = int(minutes_as_string)
 
             # Get optional notes
             wl.clear_screen()
@@ -352,9 +389,7 @@ if __name__ == "__main__":
             notes = wl.ask_for_input()
 
             # Add everything to the database.
-            wl.add_task({"employee": employee, "task": task, "notes": notes, "date": date})
-
-
+            wl.add_task({"employee": employee, "task": task, "minutes": minutes, "notes": notes, "date": strftime("%Y-%m-%d", gmtime()) })
 
         elif check_input == "2":
             print("Looking up")
