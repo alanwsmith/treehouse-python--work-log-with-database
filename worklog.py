@@ -194,9 +194,10 @@ class Worklog:
         for task in Task.select():
             employees.append(task.employee)
 
-        employees.sort()
+        unique_list_of_employees = list(set(employees))
+        unique_list_of_employees.sort()
 
-        return list(set(employees)) 
+        return unique_list_of_employees
 
 
     def get_new_entry_data(self):
@@ -444,6 +445,7 @@ if __name__ == "__main__":
             if lookup_type == "1":
                 wl.clear_screen()
                 wl.display_employee_selection_prompt(wl.get_list_of_employees())
+                employee_number = wl.ask_for_input()
 
                 #wl.dispay_employee_selection()
 
