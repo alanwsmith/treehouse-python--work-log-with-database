@@ -90,6 +90,23 @@ class Worklog:
         """
         print("Who did the task (e.g. Bob)?")
 
+    def display_lookup_prompt(self):
+        """Ask how the user wants to lookup entries. 
+
+        >>> wl = Worklog()
+        >>> wl.display_lookup_prompt()
+        How do you want to lookup entires:
+        1. By Employee
+        2. By Date
+        3. By Search Term
+
+        """
+        print("How do you want to lookup entires:")
+        print("1. By Employee")
+        print("2. By Date")
+        print("3. By Search Term")
+
+
     def display_main_prompt(self):
         """This is the top level prompt for the interface.
 
@@ -382,8 +399,10 @@ if __name__ == "__main__":
             wl.add_task({"employee": employee, "task": task, "minutes": minutes, "notes": notes, "date": strftime("%Y-%m-%d", gmtime()) })
 
         elif check_input == "2":
+            wl.clear_screen()
+            wl.display_lookup_prompt()
+
             
-            print("Looking up")
         else:
             print("Quitting")
 
