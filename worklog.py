@@ -226,6 +226,26 @@ class Worklog:
         else:
             return False
 
+    def validate_lookup_type(self, lookup_type):
+        """Makes sure that lookup_type is valid
+
+        >>> wl = Worklog()
+        >>> wl.validate_lookup_type("1")
+        True
+        >>> wl.validate_lookup_type("3")
+        True
+        >>> wl.validate_lookup_type("")
+        False
+        >>> wl.validate_lookup_type("4")
+        False
+        """
+
+        pattern = re.compile("^[1-3]$")
+        if pattern.match(lookup_type):
+            return True
+        else:
+            return False
+
 
     def validate_main_prompt_input(self, test_string):
         """Make sure a value of '1' or '2' was passed
@@ -401,6 +421,13 @@ if __name__ == "__main__":
         elif check_input == "2":
             wl.clear_screen()
             wl.display_lookup_prompt()
+            lookup_type = wl.ask_for_input()
+            while not wl.validate_lookup_type(lookup_type):
+                wl.clear_screen()
+                print("That wasn't a valid option. Try again.")
+                wl.display_lookup_prompt()
+                lookup_type = wl.ask_for_input()
+
 
             
         else:
