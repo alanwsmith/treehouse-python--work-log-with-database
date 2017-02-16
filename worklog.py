@@ -90,6 +90,21 @@ class Worklog:
         """
         print("Who did the task (e.g. Bob)?")
 
+    def display_employee_selection_prompt(self, employee_array):
+        """Print list of the employees. 
+
+        >>> wl = Worklog()
+        >>> wl.display_employee_selection_prompt(["Alex", "Bob"])
+        Which employee do you want to review:
+        1. Alex
+        2. Bob
+
+        """
+        print("Which employee do you want to review:")
+        for employee_index, employee in enumerate(employee_array):
+            print("{number}. {name}".format(number=employee_index + 1, name=employee))
+
+
     def display_lookup_prompt(self):
         """Ask how the user wants to lookup entries. 
 
@@ -429,7 +444,9 @@ if __name__ == "__main__":
                 lookup_type = wl.ask_for_input()
 
             if lookup_type == "1":
-                print("TODO: Lookup by employee")
+                wl.clear_screen()
+                #wl.dispay_employee_selection()
+
             elif lookup_type == "2":
                 print("TODO: Lookup by date")
             elif lookup_type == "3":
