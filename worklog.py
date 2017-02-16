@@ -2,6 +2,7 @@
 """
 
 from peewee import *
+from time import gmtime, strftime
 
 import re
 
@@ -382,32 +383,13 @@ if __name__ == "__main__":
 
             minutes = int(minutes_as_string)
 
-
-            
-
-
-
-            # TODO: Remove date from the interface, it should be set automatically.
-
-
-            # Get the date
-            wl.clear_screen()
-            wl.display_date_prompt()
-            date = wl.ask_for_input()
-            while not wl.validate_date(date):
-                wl.clear_screen()
-                print("The date must be in the format YYYY-MM-DD. Try again.")
-                date = wl.ask_for_input()
-
             # Get optional notes
             wl.clear_screen()
             wl.display_notes_prompt()
             notes = wl.ask_for_input()
 
             # Add everything to the database.
-            wl.add_task({"employee": employee, "task": task, "notes": notes, "date": date})
-
-
+            wl.add_task({"employee": employee, "task": task, "minutes": minutes, "notes": notes, "date": strftime("%Y-%m-%d", gmtime()) })
 
         elif check_input == "2":
             print("Looking up")
