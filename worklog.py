@@ -79,16 +79,6 @@ class Worklog:
         self.db.connect()
 
 
-    def display_date_prompt(self):
-        """Prompt for the date
-
-        >>> wl = Worklog()
-        >>> wl.display_date_prompt()
-        What date was the task performed (format: YYYY-MM-DD)?
-
-        """
-        print("What date was the task performed (format: YYYY-MM-DD)?")
-
     def display_employee_name_prompt(self):
         """Show the initial add task_prompt
 
