@@ -282,24 +282,25 @@ class Worklog:
         >>> wl.show_report_for_tasks(tasks)
         Here are the tasks:
         <BLANKLINE>
+        ---
         Employee: Bob
         Date: 2017-01-01
         Task: Make stuff
         Time Spent: 20 min.
         Notes: Good stuff here
+        <BLANKLINE>
         """
 
         print("Here are the tasks:\n")
 
         for task in tasks:
+            print("---")
             print("Employee: {}".format(task["employee"]))
             print("Date: {}".format(task["date"]))
-
-        print("Task: Make stuff")
-        print("Time Spent: 20 min.")
-        print("Notes: Good stuff here")
-
-
+            print("Task: {}".format(task["task"]))
+            print("Time Spent: {} min.".format(task["minutes"]))
+            print("Notes: {}".format(task["notes"]))
+            print("")
     
 
     def validate_date(self, date):
