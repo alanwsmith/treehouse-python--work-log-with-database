@@ -192,6 +192,18 @@ class Worklog:
 
         print("Enter notes about the task, or just hit Enter/Return to skip them:")
 
+    def display_search_prompt(self):
+        """Ask for the search term
+
+        >>> wl = Worklog()
+        >>> wl.display_search_prompt()
+        What term would you like to search for?
+
+        """
+
+        print("What term would you like to search for?")
+
+
     def get_list_of_dates(self):
         """Return a list of the dates in the database
 
@@ -714,7 +726,9 @@ if __name__ == "__main__":
 
                 # Lookup by search term 
                 elif lookup_type == "3":
-                    print("TODO: Lookup by search term")
+                    wl.clear_screen()
+                    wl.display_search_prompt()
+
                 else:
                     # This should never occur.
                     print("ERROR: Lookup type is broken.")
