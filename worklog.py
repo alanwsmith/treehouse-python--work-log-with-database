@@ -171,6 +171,31 @@ class Worklog:
 
         print("Enter notes about the task, or just hit Enter/Return to skip them:")
 
+    def get_list_of_dates(self):
+        """Return a list of the dates in the database
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.get_list_of_dates()
+        [datetime.date(2016, 10, 21), datetime.date(2017, 1, 1)]
+        """
+
+        dates = []
+
+        for task in Task.select():
+            dates.append(task.date)
+
+        dates = list(set(dates))
+        dates.sort()
+
+        return dates
+
+
     def get_list_of_employees(self):
         """Return a list of the employees in the database
 
@@ -582,7 +607,9 @@ if __name__ == "__main__":
 
             # Lookup by date 
             elif lookup_type == "2":
-                print("TODO: Lookup by date")
+                wl.clear_screen()
+                dates = wl.get_list_of_dates()
+                #wl.display_date_selection_prompt(dates)
 
             # Lookup by search term 
             elif lookup_type == "3":
