@@ -258,6 +258,42 @@ class Worklog:
         # TODO: Validate each item above
         # TODO: Send to database after validation.
 
+    def get_tasks_for_date(self, date_number):
+        """Return the tasks for a given date.
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> tasks = wl.get_tasks_for_date(2)
+        >>> tasks[0]["task"]
+        'Make stuff'
+        >>> tasks[0]["employee"]
+        'Bob'
+
+        """
+
+        date_list = self.get_list_of_dates()
+        date_index = int(date_number) - 1
+        date_string = date_list[date_index]
+
+        tasks = []
+
+        for task_item in Task.select().where(Task.date== date_string):
+            tasks.append({
+                "task": task_item.task, 
+                "employee": task_item.employee, 
+                "minutes": task_item.minutes,
+                "date": task_item.date,
+                "notes": task_item.notes
+            })
+
+        return tasks 
+        
+
     def get_tasks_for_employee(self, employee_number):
         """Return the tasks for a given emplyee.
 
@@ -658,6 +694,12 @@ if __name__ == "__main__":
                     print("That was not a valid date. Try again.")
                     wl.display_date_selection_prompt(dates)
                     date_number = wl.ask_for_input()
+
+                wl.clear_screen()
+                tasks = wl.get_tasks_for_date(date_number)
+                wl.show_report_for_tasks(tasks)
+
+
 
             # Lookup by search term 
             elif lookup_type == "3":
