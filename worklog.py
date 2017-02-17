@@ -240,6 +240,30 @@ class Worklog:
         else:
             return False
 
+    def validate_employee_number(self, employee_number):
+        """Make sure the employee number is valid
+
+        >>> wl = Worklog()
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.validate_employee_number("1")
+        True
+        >>> wl.validate_employee_number("3")
+        False
+        >>> wl.validate_employee_number("")
+        False
+        >>> wl.validate_employee_number("asdf")
+        False
+        """
+       
+        pattern = re.compile("^[1-{max}]$".format(max=len(self.get_list_of_employees())))
+        if pattern.match(employee_number):
+            return True
+        else:
+            return False
+
+
     def validate_lookup_type(self, lookup_type):
         """Makes sure that lookup_type is valid
 
@@ -446,8 +470,13 @@ if __name__ == "__main__":
                 wl.clear_screen()
                 wl.display_employee_selection_prompt(wl.get_list_of_employees())
                 employee_number = wl.ask_for_input()
+                while not wl.validate_employee_number(employee_number):
+                    wl.clear_screen()
+                    print("That was not a valid emplyee")
+                    wl.display_employee_selection_prompt(wl.get_list_of_employees())
+                    employee_number = wl.ask_for_input()
 
-                #wl.dispay_employee_selection()
+
 
             elif lookup_type == "2":
                 print("TODO: Lookup by date")
