@@ -384,6 +384,27 @@ class Worklog:
         else:
             return False
 
+    def validate_date_number(self, date_number):
+        """Make sure the data number is valid
+
+        >>> wl = Worklog()
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.validate_date_number("1")
+        True
+        >>> wl.validate_date_number("2")
+        True
+        >>> wl.validate_date_number("3")
+        False
+        """
+
+        pattern = re.compile("^[1-{}]$".format(len(self.get_list_of_dates())))
+        if pattern.match(date_number):
+            return True
+        else:
+            return False
+
     def validate_employee_number(self, employee_number):
         """Make sure the employee number is valid
 
@@ -544,7 +565,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        exit()
+        # exit()
 
         wl = Worklog()
         wl.connect_to_database("worklog.db")
@@ -631,6 +652,12 @@ if __name__ == "__main__":
                 wl.clear_screen()
                 dates = wl.get_list_of_dates()
                 wl.display_date_selection_prompt(dates)
+                date_number = wl.ask_for_input()
+                while not wl.validate_date_number(date_number):
+                    wl.clear_screen()
+                    print("That was not a valid date. Try again.")
+                    wl.display_date_selection_prompt(dates)
+                    date_number = wl.ask_for_input()
 
             # Lookup by search term 
             elif lookup_type == "3":
