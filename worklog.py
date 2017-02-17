@@ -293,8 +293,8 @@ class Worklog:
 
         for task in tasks:
             print("Employee: {}".format(task["employee"]))
+            print("Date: {}".format(task["date"]))
 
-        print("Date: 2017-01-01")
         print("Task: Make stuff")
         print("Time Spent: 20 min.")
         print("Notes: Good stuff here")
@@ -479,7 +479,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        # exit()
+        exit()
 
         wl = Worklog()
         wl.connect_to_database("worklog.db")
