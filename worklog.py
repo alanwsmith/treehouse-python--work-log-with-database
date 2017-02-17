@@ -289,6 +289,24 @@ class Worklog:
         Time Spent: 20 min.
         Notes: Good stuff here
         <BLANKLINE>
+        >>> tasks = wl.get_tasks_for_employee("1")
+        >>> wl.show_report_for_tasks(tasks)
+        Here are the tasks:
+        <BLANKLINE>
+        ---
+        Employee: Alex
+        Date: 2016-10-21
+        Task: Alex top task
+        Time Spent: 30 min.
+        Notes: Good stuff here too
+        <BLANKLINE>
+        ---
+        Employee: Alex
+        Date: 2016-10-21
+        Task: Another task
+        Time Spent: 30 min.
+        Notes: Good stuff here too
+        <BLANKLINE>
         """
 
         print("Here are the tasks:\n")
