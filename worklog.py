@@ -604,113 +604,128 @@ if __name__ == "__main__":
         # exit()
 
         wl = Worklog()
-        wl.connect_to_database("worklog.db")
+        wl.connect_to_database("database.db")
         wl.build_database_tables()
-        wl.clear_screen()
-        print("What would you like to do?") 
-        wl.display_main_prompt()
-        check_input = wl.ask_for_input()
-        while not wl.validate_main_prompt_input(check_input):
+
+        keep_going = True
+
+        while keep_going:
+
             wl.clear_screen()
-            print("That wasn't a valid option. Try again.")
+            print("What would you like to do?") 
             wl.display_main_prompt()
             check_input = wl.ask_for_input()
-
-        # Add a new task selected
-        if check_input == "1":
-
-            # Get the employee name
-            wl.clear_screen()
-            wl.display_employee_name_prompt()
-            employee = wl.ask_for_input()
-            while not wl.validate_name(employee):
-                wl.clear_screen()
-                print("Names can only contain letters, spaces, and periods.")
-                print("Names also cannot be empty. Try again.")
-                employee = wl.ask_for_input()
-
-            # Get the task name
-            wl.clear_screen()
-            wl.display_name_of_task_prompt()
-            task = wl.ask_for_input()
-            while not wl.validate_task(task):
-                wl.clear_screen()
-                print("The task can't be empty. Try again.")
-                task = wl.ask_for_input()
-
-            # Get the time
-            wl.clear_screen()
-            wl.display_minutes_prompt()
-            minutes_as_string = wl.ask_for_input()
-            while not wl.validate_minutes(minutes_as_string):
-                wl.clear_screen()
-                print("The number of minutes for the task must be an integer. Try again.")
-                minutes_as_string = wl.ask_for_input()
-
-            minutes = int(minutes_as_string)
-
-            # Get optional notes
-            wl.clear_screen()
-            wl.display_notes_prompt()
-            notes = wl.ask_for_input()
-
-            # Add everything to the database.
-            wl.add_task({"employee": employee, "task": task, "minutes": minutes, "notes": notes, "date": strftime("%Y-%m-%d", gmtime()) })
-
-        # Lookup tasks.
-        elif check_input == "2":
-            wl.clear_screen()
-            wl.display_lookup_prompt()
-            lookup_type = wl.ask_for_input()
-            while not wl.validate_lookup_type(lookup_type):
+            while not wl.validate_main_prompt_input(check_input):
                 wl.clear_screen()
                 print("That wasn't a valid option. Try again.")
+                wl.display_main_prompt()
+                check_input = wl.ask_for_input()
+
+            # Add a new task selected
+            if check_input == "1":
+
+                # Get the employee name
+                wl.clear_screen()
+                wl.display_employee_name_prompt()
+                employee = wl.ask_for_input()
+                while not wl.validate_name(employee):
+                    wl.clear_screen()
+                    print("Names can only contain letters, spaces, and periods.")
+                    print("Names also cannot be empty. Try again.")
+                    employee = wl.ask_for_input()
+
+                # Get the task name
+                wl.clear_screen()
+                wl.display_name_of_task_prompt()
+                task = wl.ask_for_input()
+                while not wl.validate_task(task):
+                    wl.clear_screen()
+                    print("The task can't be empty. Try again.")
+                    task = wl.ask_for_input()
+
+                # Get the time
+                wl.clear_screen()
+                wl.display_minutes_prompt()
+                minutes_as_string = wl.ask_for_input()
+                while not wl.validate_minutes(minutes_as_string):
+                    wl.clear_screen()
+                    print("The number of minutes for the task must be an integer. Try again.")
+                    minutes_as_string = wl.ask_for_input()
+
+                minutes = int(minutes_as_string)
+
+                # Get optional notes
+                wl.clear_screen()
+                wl.display_notes_prompt()
+                notes = wl.ask_for_input()
+
+                # Add everything to the database.
+                wl.add_task({"employee": employee, "task": task, "minutes": minutes, "notes": notes, "date": strftime("%Y-%m-%d", gmtime()) })
+                wl.clear_screen()
+                print("Task added. Press Enter/Return continue")
+                input()
+                
+
+            # Lookup tasks.
+            elif check_input == "2":
+                wl.clear_screen()
                 wl.display_lookup_prompt()
                 lookup_type = wl.ask_for_input()
-
-            # Lookup by Employee
-            if lookup_type == "1":
-                wl.clear_screen()
-                wl.display_employee_selection_prompt(wl.get_list_of_employees())
-                employee_number = wl.ask_for_input()
-                while not wl.validate_employee_number(employee_number):
+                while not wl.validate_lookup_type(lookup_type):
                     wl.clear_screen()
-                    print("That was not a valid emplyee")
+                    print("That wasn't a valid option. Try again.")
+                    wl.display_lookup_prompt()
+                    lookup_type = wl.ask_for_input()
+
+                # Lookup by Employee
+                if lookup_type == "1":
+                    wl.clear_screen()
                     wl.display_employee_selection_prompt(wl.get_list_of_employees())
                     employee_number = wl.ask_for_input()
-                
-                wl.clear_screen()
-                tasks = wl.get_tasks_for_employee(employee_number)
-                wl.show_report_for_tasks(tasks)
-
-            # Lookup by date 
-            elif lookup_type == "2":
-                wl.clear_screen()
-                dates = wl.get_list_of_dates()
-                wl.display_date_selection_prompt(dates)
-                date_number = wl.ask_for_input()
-                while not wl.validate_date_number(date_number):
+                    while not wl.validate_employee_number(employee_number):
+                        wl.clear_screen()
+                        print("That was not a valid emplyee")
+                        wl.display_employee_selection_prompt(wl.get_list_of_employees())
+                        employee_number = wl.ask_for_input()
+                    
                     wl.clear_screen()
-                    print("That was not a valid date. Try again.")
+                    tasks = wl.get_tasks_for_employee(employee_number)
+                    wl.show_report_for_tasks(tasks)
+                    print("Press Enter/Return to continue.")
+                    input()
+
+                # Lookup by date 
+                elif lookup_type == "2":
+                    wl.clear_screen()
+                    dates = wl.get_list_of_dates()
                     wl.display_date_selection_prompt(dates)
                     date_number = wl.ask_for_input()
+                    while not wl.validate_date_number(date_number):
+                        wl.clear_screen()
+                        print("That was not a valid date. Try again.")
+                        wl.display_date_selection_prompt(dates)
+                        date_number = wl.ask_for_input()
 
-                wl.clear_screen()
-                tasks = wl.get_tasks_for_date(date_number)
-                wl.show_report_for_tasks(tasks)
+                    wl.clear_screen()
+                    tasks = wl.get_tasks_for_date(date_number)
+                    wl.show_report_for_tasks(tasks)
+                    print("Press Enter/Return to continue.")
+                    input()
 
-
-
-            # Lookup by search term 
-            elif lookup_type == "3":
-                print("TODO: Lookup by search term")
+                # Lookup by search term 
+                elif lookup_type == "3":
+                    print("TODO: Lookup by search term")
+                else:
+                    # This should never occur.
+                    print("ERROR: Lookup type is broken.")
+            
+            # Quit
             else:
-                # This should never occur.
-                print("ERROR: Lookup type is broken.")
-        
-        # Quit
-        else:
-            print("Quitting")
+                print("Thanks for using the task worklog!")
+                keep_going = False
+                
+
+
 
 """
 [x] - As a user of the script, I should be able to choose whether to add a new entry or lookup previous entries.
