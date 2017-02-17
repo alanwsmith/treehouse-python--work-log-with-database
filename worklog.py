@@ -212,6 +212,53 @@ class Worklog:
         # TODO: Validate each item above
         # TODO: Send to database after validation.
 
+    def get_tasks_for_employee(self, employee_number):
+        """Return the tasks for a given emplyee.
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> tasks = wl.get_tasks_for_employee("2")
+        >>> tasks[0]["task"]
+        'Make stuff'
+        >>> tasks = wl.get_tasks_for_employee("1")
+        >>> tasks[0]["task"]
+        'Alex top task'
+        >>> tasks[1]["task"]
+        'Another task'
+        >>> tasks[1]["employee"]
+        'Alex'
+        >>> tasks[1]["minutes"]
+        30
+        >>> tasks[1]["date"]
+        datetime.date(2016, 10, 21)
+        >>> tasks[1]["notes"]
+        'Good stuff here too'
+        """
+        
+        employee_list = self.get_list_of_employees()
+        employee_index = int(employee_number) - 1
+        employee_name = employee_list[employee_index]
+
+        tasks = []
+
+        for task_item in Task.select().where(Task.employee == employee_name):
+            tasks.append({
+                "task": task_item.task, 
+                "employee": task_item.employee, 
+                "minutes": task_item.minutes,
+                "date": task_item.date,
+                "notes": task_item.notes
+
+            })
+
+        return tasks
+
+
     def how_to_find_previous_entries_prompt(self):
         """Prompt for how to search for previous entries
 
@@ -475,6 +522,10 @@ if __name__ == "__main__":
                     print("That was not a valid emplyee")
                     wl.display_employee_selection_prompt(wl.get_list_of_employees())
                     employee_number = wl.ask_for_input()
+                
+                tasks = wl.get_tasks_for_employee(employee_number)
+                
+
 
 
 
@@ -499,7 +550,6 @@ if __name__ == "__main__":
 [] - As a user of the script, if finding by a search term, I should be allowed to enter a string and then be presented with entries containing that string in the task name or notes.
 [] - As a user of the script, if finding by employee, I should be allowed to enter employee name and then be presented with entries with that employee as their creator.
 [] - As a fellow developer, I should find at least 50% of the code covered by tests. I would use coverage.py to validate this amount of coverage.
+[] - Make sure the tool works when the database is empty.
 """
-
-    # TODO: Test everything with an empty database too.
 
