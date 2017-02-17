@@ -78,6 +78,27 @@ class Worklog:
         self.db.init(database_name)
         self.db.connect()
 
+    def display_date_selection_prompt(self, dates):
+        """Show the date selection menu
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> dates = wl.get_list_of_dates()
+        >>> wl.display_date_selection_prompt(dates)
+        Choose a date:
+        1. 2016-10-21
+        2. 2017-01-01
+        """
+
+        print("Choose a date:")
+        for date_index, date in enumerate(dates):
+            print("{}. {}".format(int(date_index) + 1, date))
+
 
     def display_employee_name_prompt(self):
         """Show the initial add task_prompt
@@ -523,7 +544,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        # exit()
+        exit()
 
         wl = Worklog()
         wl.connect_to_database("worklog.db")
@@ -609,7 +630,7 @@ if __name__ == "__main__":
             elif lookup_type == "2":
                 wl.clear_screen()
                 dates = wl.get_list_of_dates()
-                #wl.display_date_selection_prompt(dates)
+                wl.display_date_selection_prompt(dates)
 
             # Lookup by search term 
             elif lookup_type == "3":
