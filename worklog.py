@@ -498,7 +498,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        exit()
+        # exit()
 
         wl = Worklog()
         wl.connect_to_database("worklog.db")
@@ -554,6 +554,7 @@ if __name__ == "__main__":
             # Add everything to the database.
             wl.add_task({"employee": employee, "task": task, "minutes": minutes, "notes": notes, "date": strftime("%Y-%m-%d", gmtime()) })
 
+        # Lookup tasks.
         elif check_input == "2":
             wl.clear_screen()
             wl.display_lookup_prompt()
@@ -564,6 +565,7 @@ if __name__ == "__main__":
                 wl.display_lookup_prompt()
                 lookup_type = wl.ask_for_input()
 
+            # Lookup by Employee
             if lookup_type == "1":
                 wl.clear_screen()
                 wl.display_employee_selection_prompt(wl.get_list_of_employees())
@@ -574,33 +576,32 @@ if __name__ == "__main__":
                     wl.display_employee_selection_prompt(wl.get_list_of_employees())
                     employee_number = wl.ask_for_input()
                 
+                wl.clear_screen()
                 tasks = wl.get_tasks_for_employee(employee_number)
                 wl.show_report_for_tasks(tasks)
-                
 
-
-
-
+            # Lookup by date 
             elif lookup_type == "2":
                 print("TODO: Lookup by date")
+
+            # Lookup by search term 
             elif lookup_type == "3":
                 print("TODO: Lookup by search term")
             else:
                 # This should never occur.
                 print("ERROR: Lookup type is broken.")
-            
-
-            
+        
+        # Quit
         else:
             print("Quitting")
 
 """
 [x] - As a user of the script, I should be able to choose whether to add a new entry or lookup previous entries.
 [x] - As a user of the script, if I choose to enter a new work log, I should be able to provide my name, a task name, a number of minutes spent working on it, and any additional notes I want to record.
-[] - As a user of the script, if I choose to find a previous entry, I should be presented with three options: find by employee, find by date, find by search term.
+[x] - As a user of the script, if I choose to find a previous entry, I should be presented with three options: find by employee, find by date, find by search term.
 [] - As a user of the script, if finding by date, I should be presented with a list of dates with entries and be able to choose one to see entries from.
 [] - As a user of the script, if finding by a search term, I should be allowed to enter a string and then be presented with entries containing that string in the task name or notes.
-[] - As a user of the script, if finding by employee, I should be allowed to enter employee name and then be presented with entries with that employee as their creator.
+[x] - As a user of the script, if finding by employee, I should be allowed to enter employee name and then be presented with entries with that employee as their creator.
 [] - As a fellow developer, I should find at least 50% of the code covered by tests. I would use coverage.py to validate this amount of coverage.
 [] - Make sure the tool works when the database is empty.
 """
