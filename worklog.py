@@ -253,7 +253,6 @@ class Worklog:
                 "minutes": task_item.minutes,
                 "date": task_item.date,
                 "notes": task_item.notes
-
             })
 
         return tasks
@@ -268,6 +267,39 @@ class Worklog:
 
         """
         return "How do you want to find previous entries?\n1 = By Employee\n2 = By Date\n3 = By Search Term"
+
+    def show_report_for_tasks(self, tasks):
+        """Print out the report for a set of tasks
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> tasks = wl.get_tasks_for_employee("2")
+        >>> wl.show_report_for_tasks(tasks)
+        Here are the tasks:
+        <BLANKLINE>
+        Employee: Bob
+        Date: 2017-01-01
+        Task: Make stuff
+        Time Spent: 20 min.
+        Notes: Good stuff here
+        """
+
+        print("Here are the tasks:\n")
+
+        for task in tasks:
+            print("Employee: {}".format(task["employee"]))
+
+        print("Date: 2017-01-01")
+        print("Task: Make stuff")
+        print("Time Spent: 20 min.")
+        print("Notes: Good stuff here")
+
+
     
 
     def validate_date(self, date):
@@ -524,6 +556,7 @@ if __name__ == "__main__":
                     employee_number = wl.ask_for_input()
                 
                 tasks = wl.get_tasks_for_employee(employee_number)
+                wl.show_report_for_tasks(tasks)
                 
 
 
