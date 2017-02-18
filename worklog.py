@@ -270,6 +270,41 @@ class Worklog:
         # TODO: Validate each item above
         # TODO: Send to database after validation.
 
+    def get_tasks_by_search(self, search_term):
+        """Get the tasks for a given search term
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> tasks = wl.get_tasks_by_search("task")
+        >>> len(tasks)
+        2
+        >>> tasks[0]["employee"]
+        'Alex'
+        >>> tasks = wl.get_tasks_by_search("stuff")
+        >>> len(tasks)
+        3
+        """
+
+        tasks = []
+
+        all_tasks = Task.select().order_by(Task.date.desc())
+        
+        for task_item in all_tasks.where(Task.task.contains(search_term) | Task.notes.contains(search_term)):
+            tasks.append({
+                "task": task_item.task, 
+                "employee": task_item.employee, 
+                "minutes": task_item.minutes,
+                "date": task_item.date,
+                "notes": task_item.notes
+            })
+
+        return tasks 
+
     def get_tasks_for_date(self, date_number):
         """Return the tasks for a given date.
 
@@ -728,6 +763,13 @@ if __name__ == "__main__":
                 elif lookup_type == "3":
                     wl.clear_screen()
                     wl.display_search_prompt()
+                    search_term = wl.ask_for_input()
+
+                    tasks = wl.get_tasks_by_search(search_term)
+                    wl.show_report_for_tasks(tasks)
+                    print("Press Enter/Return to continue.")
+                    input()
+
 
                 else:
                     # This should never occur.
