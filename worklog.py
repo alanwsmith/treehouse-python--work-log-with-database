@@ -400,7 +400,7 @@ class Worklog:
         0
 
         """
-        return 0
+        return Task.select().count() 
 
 
     def how_to_find_previous_entries_prompt(self):
