@@ -359,9 +359,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> tasks = wl.get_tasks_for_employee("2")
         >>> tasks[0]["task"]
         'Make stuff'
@@ -409,9 +412,12 @@ class Worklog:
         True
         >>> wl.get_total_number_of_tasks()
         0
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> wl.get_total_number_of_tasks()
         3
 
@@ -435,9 +441,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> tasks = wl.get_tasks_for_employee("2")
         >>> wl.show_report_for_tasks(tasks)
         Here are the tasks:
@@ -501,9 +510,12 @@ class Worklog:
         """Make sure the data number is valid
 
         >>> wl = Worklog()
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> wl.validate_date_number("1")
         True
         >>> wl.validate_date_number("2")
@@ -522,9 +534,12 @@ class Worklog:
         """Make sure the employee number is valid
 
         >>> wl = Worklog()
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> wl.validate_employee_number("1")
         True
         >>> wl.validate_employee_number("3")
@@ -701,7 +716,9 @@ if __name__ == "__main__":
                 employee = wl.ask_for_input()
                 while not wl.validate_name(employee):
                     wl.clear_screen()
-                    print("Names can only contain letters, spaces, and periods.")
+                    print(
+                        "Names can only contain letters, spaces, and periods."
+                    )
                     print("Names also cannot be empty. Try again.")
                     employee = wl.ask_for_input()
 
@@ -721,7 +738,9 @@ if __name__ == "__main__":
                 while not wl.validate_minutes(minutes_as_string):
                     wl.clear_screen()
                     print(
-                        "The number of minutes for the task must be an integer. Try again.")
+                        "The number of minutes must be an integer."
+                    )
+                    print("Try again.")
                     minutes_as_string = wl.ask_for_input()
 
                 minutes = int(minutes_as_string)
