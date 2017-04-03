@@ -386,6 +386,22 @@ class Worklog:
 
         return tasks
 
+    def get_total_number_of_tasks(self):
+        """Figure out how many tasks are in the database. 
+        Used to determine if lookups should be allowed. (i.e.
+        there is no need to present the lookups if there are
+        no tasks in the database. 
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.get_total_number_of_tasks()
+        0
+
+        """
+        return 0
+
 
     def how_to_find_previous_entries_prompt(self):
         """Prompt for how to search for previous entries
