@@ -386,6 +386,27 @@ class Worklog:
 
         return tasks
 
+    def get_total_number_of_tasks(self):
+        """Figure out how many tasks are in the database. 
+        Used to determine if lookups should be allowed. (i.e.
+        there is no need to present the lookups if there are
+        no tasks in the database. 
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.get_total_number_of_tasks()
+        0
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.get_total_number_of_tasks()
+        3
+
+        """
+        return Task.select().count() 
+
 
     def how_to_find_previous_entries_prompt(self):
         """Prompt for how to search for previous entries
@@ -716,6 +737,16 @@ if __name__ == "__main__":
             # Lookup tasks.
             elif check_input == "2":
                 wl.clear_screen()
+
+                # Make sure there are tasks
+                if wl.get_total_number_of_tasks() == 0:
+                    print("There aren't any tasks in the database yet.")
+                    print("Add one and then try again.")
+                    print()
+                    print("Press Enter/Return to continue.")
+                    input()
+                    continue
+
                 wl.display_lookup_prompt()
                 lookup_type = wl.ask_for_input()
                 while not wl.validate_lookup_type(lookup_type):
