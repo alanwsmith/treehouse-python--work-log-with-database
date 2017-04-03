@@ -737,6 +737,16 @@ if __name__ == "__main__":
             # Lookup tasks.
             elif check_input == "2":
                 wl.clear_screen()
+
+                # Make sure there are tasks
+                if wl.get_total_number_of_tasks() == 0:
+                    print("There aren't any tasks in the database yet.")
+                    print("Add one and then try again.")
+                    print()
+                    print("Press Enter/Return to continue.")
+                    input()
+                    continue
+
                 wl.display_lookup_prompt()
                 lookup_type = wl.ask_for_input()
                 while not wl.validate_lookup_type(lookup_type):
