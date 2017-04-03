@@ -797,10 +797,15 @@ if __name__ == "__main__":
                     search_term = wl.ask_for_input()
 
                     tasks = wl.get_tasks_by_search(search_term)
-                    wl.show_report_for_tasks(tasks)
-                    print("Press Enter/Return to continue.")
-                    input()
-
+                    if len(tasks) == 0:
+                        print("No tasks matched your search term. Try again.")
+                        print()
+                        print("Press Enter/Return to continue.")
+                        input()
+                    else:
+                        wl.show_report_for_tasks(tasks)
+                        print("Press Enter/Return to continue.")
+                        input()
 
                 else:
                     # This should never occur.
