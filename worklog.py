@@ -32,7 +32,8 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 10, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 10, "notes": "Good stuff here", "date": "2017-01-01"})
         >>> Task.select().count()
         1
 
@@ -84,9 +85,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> dates = wl.get_list_of_dates()
         >>> wl.display_date_selection_prompt(dates)
         Choose a date:
@@ -184,11 +188,11 @@ class Worklog:
 
         >>> wl = Worklog()
         >>> wl.display_notes_prompt()
-        Enter notes about the task, or just hit Enter/Return to skip them:
+        Enter notes about the task, or hit Enter/Return to skip them:
 
         """
 
-        print("Enter notes about the task, or just hit Enter/Return to skip them:")
+        print("Enter notes about the task, or hit Enter/Return to skip them:")
 
     def display_search_prompt(self):
         """Ask for the search term
