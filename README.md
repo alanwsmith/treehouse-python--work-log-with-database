@@ -14,7 +14,7 @@ Run the script with:
 Specs
 -----
 
-The specifications for the proejct are found at:
+The specifications for the project are found at:
 
     https://teamtreehouse.com/projects/work-log-with-a-database
 
@@ -22,5 +22,5 @@ The specifications for the proejct are found at:
 PEP8
 ----
 
-There are a couple PEP8 violations of line lenght. These are based on the 
+There are a couple PEP8 violations of line length. These are based on the 
 way the test suite looks for returned values. 
