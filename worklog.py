@@ -840,6 +840,13 @@ if __name__ == "__main__":
                         print("Press Enter/Return to continue.")
                         input()
 
+                elif lookup_type == "4":
+                    wl.clear_screen()
+                    print("TODO: lookup by time")
+                    print("Press Enter/Return to continue.")
+                    input()
+
+
                 else:
                     # This should never occur.
                     wl.clear_screen()
