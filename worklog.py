@@ -846,5 +846,6 @@ if __name__ == "__main__":
 
             # Quit
             else:
+                wl.clear_screen()
                 print("Thanks for using the task worklog!")
                 keep_going = False
