@@ -196,6 +196,19 @@ class Worklog:
 
         print("Enter notes about the task, or hit Enter/Return to skip them:")
 
+    def display_time_selection_prompt(self, times):
+        """Display prompt to for a number of times. 
+
+        >>> wl = Worklog()
+        >>> wl.display_time_selection_prompt([20, 30])
+        1. 20
+        2. 30
+
+        """
+        
+        print("1. 20\n2. 30")
+
+
     def display_search_prompt(self):
         """Ask for the search term
 
@@ -726,7 +739,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        exit()
+        # exit()
 
         wl = Worklog()
         wl.connect_to_database("database.db")
@@ -878,6 +891,7 @@ if __name__ == "__main__":
                 elif lookup_type == "4":
                     wl.clear_screen()
                     times = wl.get_list_of_times()
+                    wl.display_time_selection_prompt(times)
 
                     print("TODO: lookup by time")
                     print("Press Enter/Return to continue.")
