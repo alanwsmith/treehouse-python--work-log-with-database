@@ -268,6 +268,10 @@ class Worklog:
     def get_list_of_times(self):
         """Return a list of the times that tasks took.
 
+        Note that the code to sort the output isn't 
+        properly tested by this set of tests. More research needs
+        to be done if that becomes necessary. 
+
         >>> wl = Worklog()
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
@@ -281,6 +285,8 @@ class Worklog:
         >>> times = wl.get_list_of_times()
         >>> times[0]
         20
+        >>> len(times)
+        2
 
         """
         database_times = []
@@ -288,7 +294,10 @@ class Worklog:
         for task in Task.select():
             database_times.append(task.minutes)
 
-        return database_times
+        unique_list_of_times = list(set(database_times))
+        unique_list_of_times.sort() 
+
+        return unique_list_of_times 
 
 
     def get_new_entry_data(self):
