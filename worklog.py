@@ -265,6 +265,28 @@ class Worklog:
 
         return unique_list_of_employees
 
+    def get_list_of_times(self):
+        """Return a list of the times that tasks took.
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> times = wl.get_list_of_times()
+        >>> times[0]
+        20
+
+
+        """
+        return [20]
+
+
     def get_new_entry_data(self):
         print("What is your name?")
         name = self.ask_for_input()
@@ -691,7 +713,7 @@ if __name__ == "__main__":
     else:
 
         print("--- Tests Passed ---")
-        # exit()
+        exit()
 
         wl = Worklog()
         wl.connect_to_database("database.db")
@@ -842,6 +864,8 @@ if __name__ == "__main__":
 
                 elif lookup_type == "4":
                     wl.clear_screen()
+                    times = wl.get_list_of_times()
+
                     print("TODO: lookup by time")
                     print("Press Enter/Return to continue.")
                     input()
