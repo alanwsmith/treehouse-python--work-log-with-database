@@ -842,7 +842,11 @@ if __name__ == "__main__":
 
                 else:
                     # This should never occur.
-                    print("ERROR: Lookup type is broken.")
+                    wl.clear_screen()
+                    print("ERROR: Something went wrong with the lookup.")
+                    print("")
+                    print("Press Enter/Return to continue.")
+                    input()
 
             # Quit
             else:
