@@ -139,12 +139,14 @@ class Worklog:
         1. By Employee
         2. By Date
         3. By Search Term
+        4. By Time Spent
 
         """
         print("How do you want to lookup entires:")
         print("1. By Employee")
         print("2. By Date")
         print("3. By Search Term")
+        print("4. By Time Spent")
 
     def display_main_prompt(self):
         """This is the top level prompt for the interface.
@@ -568,10 +570,12 @@ class Worklog:
         >>> wl.validate_lookup_type("")
         False
         >>> wl.validate_lookup_type("4")
+        True
+        >>> wl.validate_lookup_type("5")
         False
         """
 
-        pattern = re.compile("^[1-3]$")
+        pattern = re.compile("^[1-4]$")
         if pattern.match(lookup_type):
             return True
         else:
