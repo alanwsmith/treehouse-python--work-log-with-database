@@ -282,9 +282,13 @@ class Worklog:
         >>> times[0]
         20
 
-
         """
-        return [20]
+        database_times = []
+
+        for task in Task.select():
+            database_times.append(task.minutes)
+
+        return database_times
 
 
     def get_new_entry_data(self):
