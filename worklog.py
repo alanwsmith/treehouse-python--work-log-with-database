@@ -897,6 +897,17 @@ if __name__ == "__main__":
                     print("Press Enter/Return to continue.")
                     input()
 
+                elif lookup_type == "4":
+                    wl.clear_screen()
+                    times = wl.get_list_of_times()
+                    wl.display_time_selection_prompt(times)
+                    time_number = wl.ask_for_input()
+
+                    print("TODO: lookup by time")
+                    print("Press Enter/Return to continue.")
+                    input()
+
+
                 # Lookup by search term
                 elif lookup_type == "3":
                     wl.clear_screen()
@@ -913,17 +924,6 @@ if __name__ == "__main__":
                         wl.show_report_for_tasks(tasks)
                         print("Press Enter/Return to continue.")
                         input()
-
-                elif lookup_type == "4":
-                    wl.clear_screen()
-                    times = wl.get_list_of_times()
-                    wl.display_time_selection_prompt(times)
-                    time_number = wl.ask_for_input()
-
-
-                    print("TODO: lookup by time")
-                    print("Press Enter/Return to continue.")
-                    input()
 
 
                 else:
