@@ -23,4 +23,6 @@ PEP8
 ----
 
 There are a couple PEP8 violations of line length. These are based on the 
-way the test suite looks for returned values. 
+way the test suite looks for returned values. Probably fixable, but the 
+higher priority is making progress in the course.
+
