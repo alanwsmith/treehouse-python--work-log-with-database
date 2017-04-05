@@ -130,6 +130,25 @@ class Worklog:
                     number=employee_index + 1,
                     name=employee))
 
+    def display_time_selection_prompt(self, times_array):
+        """Display prompt to for a number of times. 
+
+        >>> wl = Worklog()
+        >>> wl.display_time_selection_prompt([20, 30])
+        What amount of time spent do you want to review:
+        1. 20
+        2. 30
+
+        """
+
+        print("What amount of time spent do you want to review:") 
+        for time_index, time in enumerate(times_array):
+            print(
+                "{number}. {time}".format(
+                    number = time_index + 1,
+                    time = time))
+
+
     def display_lookup_prompt(self):
         """Ask how the user wants to lookup entries.
 
@@ -196,17 +215,6 @@ class Worklog:
 
         print("Enter notes about the task, or hit Enter/Return to skip them:")
 
-    def display_time_selection_prompt(self, times):
-        """Display prompt to for a number of times. 
-
-        >>> wl = Worklog()
-        >>> wl.display_time_selection_prompt([20, 30])
-        1. 20
-        2. 30
-
-        """
-        
-        print("1. 20\n2. 30")
 
 
     def display_search_prompt(self):
