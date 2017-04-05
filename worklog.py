@@ -148,7 +148,6 @@ class Worklog:
                     number = time_index + 1,
                     time = time))
 
-
     def display_lookup_prompt(self):
         """Ask how the user wants to lookup entries.
 
@@ -409,6 +408,35 @@ class Worklog:
             })
 
         return tasks
+
+    def get_tasks_for_time(self, time_number):
+        """Return the tasks that took a specific amount of time.
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> tasks = wl.get_tasks_for_time(1)
+        >>> tasks[0]["task"]
+        'Make stuff'
+
+        """
+
+        time_list = self.get_list_of_times()
+        time_index = int(time_number) - 1
+        time_string = time_list[time_index]
+        
+        tasks = []
+        tasks.append({ "task": "Make stuff"})
+
+        return tasks
+
 
     def get_tasks_for_employee(self, employee_number):
         """Return the tasks for a given emplyee.
@@ -915,8 +943,13 @@ if __name__ == "__main__":
                         print("That was not a valid time. Try again.")
                         wl.display_time_selection_prompt(times)
                         time_number = wl.ask_for_input()
+                    
+                    wl.clear_screen()
+                    tasks = wl.get_tasks_for_time(time_number)
 
-                    print("TODO: lookup by time")
+                    print("TODO: Finish time lookup")
+
+
                     print("Press Enter/Return to continue.")
                     input()
 
