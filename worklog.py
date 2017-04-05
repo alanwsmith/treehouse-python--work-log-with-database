@@ -580,6 +580,31 @@ class Worklog:
         else:
             return False
 
+    def validate_time_number(self, time_number):
+        """Makes sure that the time requested is valid
+
+        >>> wl = Worklog()
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.validate_time_number("1")
+        True
+        >>> wl.validate_time_number("2")
+        True
+        >>> wl.validate_time_number("3")
+        False
+        """
+
+        pattern = re.compile("^[1-{}]$".format(len(self.get_list_of_times())))
+        if pattern.match(time_number):
+            return True
+        else:
+            return False
+
+
     def validate_employee_number(self, employee_number):
         """Make sure the employee number is valid
 
@@ -709,6 +734,7 @@ class Worklog:
             return True
         else:
             return False
+
 
     def validate_how_to_find_previous_entries_prompt(self, test_string):
         """Make sure the value passed is either a 1, 2, or 3
@@ -892,6 +918,8 @@ if __name__ == "__main__":
                     wl.clear_screen()
                     times = wl.get_list_of_times()
                     wl.display_time_selection_prompt(times)
+                    time_number = wl.ask_for_input()
+
 
                     print("TODO: lookup by time")
                     print("Press Enter/Return to continue.")
