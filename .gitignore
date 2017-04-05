@@ -3,4 +3,5 @@
 .DS_Store
 test.db
 database.db
+.coverage
 
