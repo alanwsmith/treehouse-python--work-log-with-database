@@ -5,6 +5,7 @@ from peewee import *
 from time import gmtime, strftime
 
 import re
+import os
 
 database_connection = SqliteDatabase(None)
 
@@ -63,7 +64,7 @@ class Worklog:
     def clear_screen(self):
         """Convience method for clearing the screen
         """
-        print("\033c", end="")
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     def connect_to_database(self, database_name):
         """Make the database connection
