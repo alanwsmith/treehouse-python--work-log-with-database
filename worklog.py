@@ -131,7 +131,7 @@ class Worklog:
                     name=employee))
 
     def display_time_selection_prompt(self, times_array):
-        """Display prompt to for a number of times. 
+        """Display prompt to for a number of times.
 
         >>> wl = Worklog()
         >>> wl.display_time_selection_prompt([20, 30])
@@ -141,12 +141,12 @@ class Worklog:
 
         """
 
-        print("What amount of time spent do you want to review:") 
+        print("What amount of time spent do you want to review:")
         for time_index, time in enumerate(times_array):
             print(
                 "{number}. {time}".format(
-                    number = time_index + 1,
-                    time = time))
+                    number=time_index + 1,
+                    time=time))
 
     def display_lookup_prompt(self):
         """Ask how the user wants to lookup entries.
@@ -213,8 +213,6 @@ class Worklog:
         """
 
         print("Enter notes about the task, or hit Enter/Return to skip them:")
-
-
 
     def display_search_prompt(self):
         """Ask for the search term
@@ -288,9 +286,9 @@ class Worklog:
     def get_list_of_times(self):
         """Return a list of the times that tasks took.
 
-        Note that the code to sort the output isn't 
+        Note that the code to sort the output isn't
         properly tested by this set of tests. More research needs
-        to be done if that becomes necessary. 
+        to be done if that becomes necessary.
 
         >>> wl = Worklog()
         >>> wl.connect_to_database(":memory:")
@@ -315,22 +313,9 @@ class Worklog:
             database_times.append(task.minutes)
 
         unique_list_of_times = list(set(database_times))
-        unique_list_of_times.sort() 
+        unique_list_of_times.sort()
 
-        return unique_list_of_times 
-
-
-    def get_new_entry_data(self):
-        print("What is your name?")
-        name = self.ask_for_input()
-        print("What is the name of your task?")
-        task = self.ask_for_input()
-        print("How long did you spend on it?")
-        time_spent = self.ask_for_input()
-        print("Add more notes here or just hit Enter/Return to continue")
-        notes = self.ask_for_input()
-        # TODO: Validate each item above
-        # TODO: Send to database after validation.
+        return unique_list_of_times
 
     def get_tasks_by_search(self, search_term):
         """Get the tasks for a given search term
@@ -431,7 +416,7 @@ class Worklog:
         time_list = self.get_list_of_times()
         time_index = int(time_number) - 1
         time_string = time_list[time_index]
-        
+
         tasks = []
 
         for task_item in Task.select().where(Task.minutes == time_string):
@@ -444,7 +429,6 @@ class Worklog:
             })
 
         return tasks
-
 
     def get_tasks_for_employee(self, employee_number):
         """Return the tasks for a given emplyee.
@@ -623,8 +607,6 @@ class Worklog:
             return True
         else:
             return False
-
-
 
     def validate_employee_number(self, employee_number):
         """Make sure the employee number is valid
@@ -951,14 +933,13 @@ if __name__ == "__main__":
                         print("That was not a valid time. Try again.")
                         wl.display_time_selection_prompt(times)
                         time_number = wl.ask_for_input()
-                    
+
                     wl.clear_screen()
                     tasks = wl.get_tasks_for_time(time_number)
                     wl.show_report_for_tasks(tasks)
 
                     print("Press Enter/Return to continue.")
                     input()
-
 
                 # Lookup by search term
                 elif lookup_type == "3":
@@ -976,7 +957,6 @@ if __name__ == "__main__":
                         wl.show_report_for_tasks(tasks)
                         print("Press Enter/Return to continue.")
                         input()
-
 
                 else:
                     # This should never occur.
