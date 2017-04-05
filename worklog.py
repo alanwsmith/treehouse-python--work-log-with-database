@@ -433,7 +433,15 @@ class Worklog:
         time_string = time_list[time_index]
         
         tasks = []
-        tasks.append({ "task": "Make stuff"})
+
+        for task_item in Task.select().where(Task.minutes == time_string):
+            tasks.append({
+                "task": task_item.task,
+                "employee": task_item.employee,
+                "minutes": task_item.minutes,
+                "date": task_item.date,
+                "notes": task_item.notes
+            })
 
         return tasks
 
