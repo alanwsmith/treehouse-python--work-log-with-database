@@ -902,6 +902,11 @@ if __name__ == "__main__":
                     times = wl.get_list_of_times()
                     wl.display_time_selection_prompt(times)
                     time_number = wl.ask_for_input()
+                    while not wl.validate_time_number(time_number):
+                        wl.clear_screen()
+                        print("That was not a valid time. Try again.")
+                        wl.display_time_selection_prompt(times)
+                        time_number = wl.ask_for_input()
 
                     print("TODO: lookup by time")
                     print("Press Enter/Return to continue.")
