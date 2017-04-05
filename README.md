@@ -11,3 +11,16 @@ Run the script with:
     python3 worklog.py
 
 
+Specs
+-----
+
+The specifications for the project are found at:
+
+    https://teamtreehouse.com/projects/work-log-with-a-database
+
+
+PEP8
+----
+
+There are a couple PEP8 violations of line length. These are based on the 
+way the test suite looks for returned values. 

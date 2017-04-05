@@ -19,10 +19,11 @@ class Task(Model):
     class Meta:
         database = database_connection
 
+
 class Worklog:
 
     def __init__(self):
-        self.db = database_connection 
+        self.db = database_connection
 
     def add_task(self, params):
         """Add an entry to the database
@@ -31,7 +32,8 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 10, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 10, "notes": "Good stuff here", "date": "2017-01-01"})
         >>> Task.select().count()
         1
 
@@ -55,15 +57,13 @@ class Worklog:
 
         """
 
-        self.db.create_tables([Task], safe=True) 
+        self.db.create_tables([Task], safe=True)
         return Task.table_exists()
-
 
     def clear_screen(self):
         """Convience method for clearing the screen
         """
         print("\033c", end="")
-
 
     def connect_to_database(self, database_name):
         """Make the database connection
@@ -73,7 +73,7 @@ class Worklog:
         >>> wl.db.is_closed()
         False
 
-        """ 
+        """
 
         self.db.init(database_name)
         self.db.connect()
@@ -85,9 +85,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> dates = wl.get_list_of_dates()
         >>> wl.display_date_selection_prompt(dates)
         Choose a date:
@@ -99,20 +102,19 @@ class Worklog:
         for date_index, date in enumerate(dates):
             print("{}. {}".format(int(date_index) + 1, date))
 
-
     def display_employee_name_prompt(self):
         """Show the initial add task_prompt
 
         >>> wl = Worklog()
         >>> wl.display_employee_name_prompt()
         Who did the task (e.g. Bob)?
-         
+
 
         """
         print("Who did the task (e.g. Bob)?")
 
     def display_employee_selection_prompt(self, employee_array):
-        """Print list of the employees. 
+        """Print list of the employees.
 
         >>> wl = Worklog()
         >>> wl.display_employee_selection_prompt(["Alex", "Bob"])
@@ -123,11 +125,31 @@ class Worklog:
         """
         print("Which employee do you want to review:")
         for employee_index, employee in enumerate(employee_array):
-            print("{number}. {name}".format(number=employee_index + 1, name=employee))
+            print(
+                "{number}. {name}".format(
+                    number=employee_index + 1,
+                    name=employee))
 
+    def display_time_selection_prompt(self, times_array):
+        """Display prompt to for a number of times. 
+
+        >>> wl = Worklog()
+        >>> wl.display_time_selection_prompt([20, 30])
+        What amount of time spent do you want to review:
+        1. 20
+        2. 30
+
+        """
+
+        print("What amount of time spent do you want to review:") 
+        for time_index, time in enumerate(times_array):
+            print(
+                "{number}. {time}".format(
+                    number = time_index + 1,
+                    time = time))
 
     def display_lookup_prompt(self):
-        """Ask how the user wants to lookup entries. 
+        """Ask how the user wants to lookup entries.
 
         >>> wl = Worklog()
         >>> wl.display_lookup_prompt()
@@ -135,13 +157,14 @@ class Worklog:
         1. By Employee
         2. By Date
         3. By Search Term
+        4. By Time Spent
 
         """
         print("How do you want to lookup entires:")
         print("1. By Employee")
         print("2. By Date")
         print("3. By Search Term")
-
+        print("4. By Time Spent")
 
     def display_main_prompt(self):
         """This is the top level prompt for the interface.
@@ -169,7 +192,6 @@ class Worklog:
 
         print("How many minutes did you spend on the task?")
 
-
     def display_name_of_task_prompt(self):
         """Ask for the name of the task
 
@@ -186,11 +208,13 @@ class Worklog:
 
         >>> wl = Worklog()
         >>> wl.display_notes_prompt()
-        Enter notes about the task, or just hit Enter/Return to skip them:
+        Enter notes about the task, or hit Enter/Return to skip them:
 
         """
 
-        print("Enter notes about the task, or just hit Enter/Return to skip them:")
+        print("Enter notes about the task, or hit Enter/Return to skip them:")
+
+
 
     def display_search_prompt(self):
         """Ask for the search term
@@ -203,7 +227,6 @@ class Worklog:
 
         print("What term would you like to search for?")
 
-
     def get_list_of_dates(self):
         """Return a list of the dates in the database
 
@@ -211,9 +234,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> wl.get_list_of_dates()
         [datetime.date(2016, 10, 21), datetime.date(2017, 1, 1)]
         """
@@ -228,7 +254,6 @@ class Worklog:
 
         return dates
 
-
     def get_list_of_employees(self):
         """Return a list of the employees in the database
 
@@ -236,9 +261,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> employee_list = wl.get_list_of_employees()
         >>> employee_list[0]
         'Alex'
@@ -257,16 +285,50 @@ class Worklog:
 
         return unique_list_of_employees
 
+    def get_list_of_times(self):
+        """Return a list of the times that tasks took.
+
+        Note that the code to sort the output isn't 
+        properly tested by this set of tests. More research needs
+        to be done if that becomes necessary. 
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> times = wl.get_list_of_times()
+        >>> times[0]
+        20
+        >>> len(times)
+        2
+
+        """
+        database_times = []
+
+        for task in Task.select():
+            database_times.append(task.minutes)
+
+        unique_list_of_times = list(set(database_times))
+        unique_list_of_times.sort() 
+
+        return unique_list_of_times 
+
 
     def get_new_entry_data(self):
         print("What is your name?")
-        name = self.ask_for_input() 
+        name = self.ask_for_input()
         print("What is the name of your task?")
-        task = self.ask_for_input() 
+        task = self.ask_for_input()
         print("How long did you spend on it?")
-        time_spent = self.ask_for_input() 
+        time_spent = self.ask_for_input()
         print("Add more notes here or just hit Enter/Return to continue")
-        notes = self.ask_for_input() 
+        notes = self.ask_for_input()
         # TODO: Validate each item above
         # TODO: Send to database after validation.
 
@@ -277,9 +339,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> tasks = wl.get_tasks_by_search("task")
         >>> len(tasks)
         2
@@ -293,17 +358,18 @@ class Worklog:
         tasks = []
 
         all_tasks = Task.select().order_by(Task.date.desc())
-        
-        for task_item in all_tasks.where(Task.task.contains(search_term) | Task.notes.contains(search_term)):
+
+        for task_item in all_tasks.where(Task.task.contains(
+                search_term) | Task.notes.contains(search_term)):
             tasks.append({
-                "task": task_item.task, 
-                "employee": task_item.employee, 
+                "task": task_item.task,
+                "employee": task_item.employee,
                 "minutes": task_item.minutes,
                 "date": task_item.date,
                 "notes": task_item.notes
             })
 
-        return tasks 
+        return tasks
 
     def get_tasks_for_date(self, date_number):
         """Return the tasks for a given date.
@@ -312,9 +378,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> tasks = wl.get_tasks_for_date(2)
         >>> tasks[0]["task"]
         'Make stuff'
@@ -329,17 +398,53 @@ class Worklog:
 
         tasks = []
 
-        for task_item in Task.select().where(Task.date== date_string):
+        for task_item in Task.select().where(Task.date == date_string):
             tasks.append({
-                "task": task_item.task, 
-                "employee": task_item.employee, 
+                "task": task_item.task,
+                "employee": task_item.employee,
                 "minutes": task_item.minutes,
                 "date": task_item.date,
                 "notes": task_item.notes
             })
 
-        return tasks 
+        return tasks
+
+    def get_tasks_for_time(self, time_number):
+        """Return the tasks that took a specific amount of time.
+
+        >>> wl = Worklog()
+        >>> wl.connect_to_database(":memory:")
+        >>> wl.build_database_tables()
+        True
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> tasks = wl.get_tasks_for_time(1)
+        >>> tasks[0]["task"]
+        'Make stuff'
+
+        """
+
+        time_list = self.get_list_of_times()
+        time_index = int(time_number) - 1
+        time_string = time_list[time_index]
         
+        tasks = []
+
+        for task_item in Task.select().where(Task.minutes == time_string):
+            tasks.append({
+                "task": task_item.task,
+                "employee": task_item.employee,
+                "minutes": task_item.minutes,
+                "date": task_item.date,
+                "notes": task_item.notes
+            })
+
+        return tasks
+
 
     def get_tasks_for_employee(self, employee_number):
         """Return the tasks for a given emplyee.
@@ -348,9 +453,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> tasks = wl.get_tasks_for_employee("2")
         >>> tasks[0]["task"]
         'Make stuff'
@@ -368,7 +476,7 @@ class Worklog:
         >>> tasks[1]["notes"]
         'Good stuff here too'
         """
-        
+
         employee_list = self.get_list_of_employees()
         employee_index = int(employee_number) - 1
         employee_name = employee_list[employee_index]
@@ -377,8 +485,8 @@ class Worklog:
 
         for task_item in Task.select().where(Task.employee == employee_name):
             tasks.append({
-                "task": task_item.task, 
-                "employee": task_item.employee, 
+                "task": task_item.task,
+                "employee": task_item.employee,
                 "minutes": task_item.minutes,
                 "date": task_item.date,
                 "notes": task_item.notes
@@ -387,10 +495,10 @@ class Worklog:
         return tasks
 
     def get_total_number_of_tasks(self):
-        """Figure out how many tasks are in the database. 
+        """Figure out how many tasks are in the database.
         Used to determine if lookups should be allowed. (i.e.
         there is no need to present the lookups if there are
-        no tasks in the database. 
+        no tasks in the database.
 
         >>> wl = Worklog()
         >>> wl.connect_to_database(":memory:")
@@ -398,15 +506,17 @@ class Worklog:
         True
         >>> wl.get_total_number_of_tasks()
         0
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> wl.get_total_number_of_tasks()
         3
 
         """
-        return Task.select().count() 
-
+        return Task.select().count()
 
     def how_to_find_previous_entries_prompt(self):
         """Prompt for how to search for previous entries
@@ -425,9 +535,12 @@ class Worklog:
         >>> wl.connect_to_database(":memory:")
         >>> wl.build_database_tables()
         True
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> tasks = wl.get_tasks_for_employee("2")
         >>> wl.show_report_for_tasks(tasks)
         Here are the tasks:
@@ -469,7 +582,6 @@ class Worklog:
             print("Time Spent: {} min.".format(task["minutes"]))
             print("Notes: {}".format(task["notes"]))
             print("")
-    
 
     def validate_date(self, date):
         """Make sure the date is in the proper format
@@ -492,9 +604,12 @@ class Worklog:
         """Make sure the data number is valid
 
         >>> wl = Worklog()
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> wl.validate_date_number("1")
         True
         >>> wl.validate_date_number("2")
@@ -509,13 +624,18 @@ class Worklog:
         else:
             return False
 
+
+
     def validate_employee_number(self, employee_number):
         """Make sure the employee number is valid
 
         >>> wl = Worklog()
-        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
-        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
-        >>> wl.add_task({"employee": "Alex", "task": "Another task", "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
         >>> wl.validate_employee_number("1")
         True
         >>> wl.validate_employee_number("3")
@@ -525,13 +645,13 @@ class Worklog:
         >>> wl.validate_employee_number("asdf")
         False
         """
-       
-        pattern = re.compile("^[1-{max}]$".format(max=len(self.get_list_of_employees())))
+
+        pattern = re.compile(
+            "^[1-{max}]$".format(max=len(self.get_list_of_employees())))
         if pattern.match(employee_number):
             return True
         else:
             return False
-
 
     def validate_lookup_type(self, lookup_type):
         """Makes sure that lookup_type is valid
@@ -544,15 +664,16 @@ class Worklog:
         >>> wl.validate_lookup_type("")
         False
         >>> wl.validate_lookup_type("4")
+        True
+        >>> wl.validate_lookup_type("5")
         False
         """
 
-        pattern = re.compile("^[1-3]$")
+        pattern = re.compile("^[1-4]$")
         if pattern.match(lookup_type):
             return True
         else:
             return False
-
 
     def validate_main_prompt_input(self, test_string):
         """Make sure a value of '1' or '2' was passed
@@ -570,7 +691,7 @@ class Worklog:
         """
         pattern = re.compile("^[1-3]$")
         if pattern.match(test_string):
-            return True 
+            return True
         else:
             return False
 
@@ -585,21 +706,18 @@ class Worklog:
         False
 
         """
-        
+
         pattern = re.compile("^\d+$")
         if pattern.match(minutes_as_string):
             return True
         else:
             return False
 
-
-
-
     def validate_name(self, name):
-        """Make sure the name is valid. 
+        """Make sure the name is valid.
 
-        Letters, spaces, and periods are allowed. 
-        
+        Letters, spaces, and periods are allowed.
+
         >>> wl = Worklog()
         >>> wl.validate_name("Bob")
         True
@@ -638,6 +756,29 @@ class Worklog:
         else:
             return False
 
+    def validate_time_number(self, time_number):
+        """Makes sure that the time requested is valid
+
+        >>> wl = Worklog()
+        >>> wl.add_task({"employee": "Bob", "task": "Make stuff", \
+        "minutes": 20, "notes": "Good stuff here", "date": "2017-01-01"})
+        >>> wl.add_task({"employee": "Alex", "task": "Alex top task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.add_task({"employee": "Alex", "task": "Another task", \
+        "minutes": 30, "notes": "Good stuff here too", "date": "2016-10-21"})
+        >>> wl.validate_time_number("1")
+        True
+        >>> wl.validate_time_number("2")
+        True
+        >>> wl.validate_time_number("3")
+        False
+        """
+
+        pattern = re.compile("^[1-{}]$".format(len(self.get_list_of_times())))
+        if pattern.match(time_number):
+            return True
+        else:
+            return False
 
     def validate_how_to_find_previous_entries_prompt(self, test_string):
         """Make sure the value passed is either a 1, 2, or 3
@@ -661,7 +802,6 @@ class Worklog:
             return False
 
 
-
 if __name__ == "__main__":
     import doctest
     if doctest.testmod().failed:
@@ -680,7 +820,7 @@ if __name__ == "__main__":
         while keep_going:
 
             wl.clear_screen()
-            print("What would you like to do?") 
+            print("What would you like to do?")
             wl.display_main_prompt()
             check_input = wl.ask_for_input()
             while not wl.validate_main_prompt_input(check_input):
@@ -698,7 +838,9 @@ if __name__ == "__main__":
                 employee = wl.ask_for_input()
                 while not wl.validate_name(employee):
                     wl.clear_screen()
-                    print("Names can only contain letters, spaces, and periods.")
+                    print(
+                        "Names can only contain letters, spaces, and periods."
+                    )
                     print("Names also cannot be empty. Try again.")
                     employee = wl.ask_for_input()
 
@@ -717,7 +859,10 @@ if __name__ == "__main__":
                 minutes_as_string = wl.ask_for_input()
                 while not wl.validate_minutes(minutes_as_string):
                     wl.clear_screen()
-                    print("The number of minutes for the task must be an integer. Try again.")
+                    print(
+                        "The number of minutes must be an integer."
+                    )
+                    print("Try again.")
                     minutes_as_string = wl.ask_for_input()
 
                 minutes = int(minutes_as_string)
@@ -728,11 +873,15 @@ if __name__ == "__main__":
                 notes = wl.ask_for_input()
 
                 # Add everything to the database.
-                wl.add_task({"employee": employee, "task": task, "minutes": minutes, "notes": notes, "date": strftime("%Y-%m-%d", gmtime()) })
+                wl.add_task({"employee": employee,
+                             "task": task,
+                             "minutes": minutes,
+                             "notes": notes,
+                             "date": strftime("%Y-%m-%d",
+                                              gmtime())})
                 wl.clear_screen()
                 print("Task added. Press Enter/Return continue")
                 input()
-                
 
             # Lookup tasks.
             elif check_input == "2":
@@ -758,21 +907,23 @@ if __name__ == "__main__":
                 # Lookup by Employee
                 if lookup_type == "1":
                     wl.clear_screen()
-                    wl.display_employee_selection_prompt(wl.get_list_of_employees())
+                    wl.display_employee_selection_prompt(
+                        wl.get_list_of_employees())
                     employee_number = wl.ask_for_input()
                     while not wl.validate_employee_number(employee_number):
                         wl.clear_screen()
                         print("That was not a valid emplyee")
-                        wl.display_employee_selection_prompt(wl.get_list_of_employees())
+                        wl.display_employee_selection_prompt(
+                            wl.get_list_of_employees())
                         employee_number = wl.ask_for_input()
-                    
+
                     wl.clear_screen()
                     tasks = wl.get_tasks_for_employee(employee_number)
                     wl.show_report_for_tasks(tasks)
                     print("Press Enter/Return to continue.")
                     input()
 
-                # Lookup by date 
+                # Lookup by date
                 elif lookup_type == "2":
                     wl.clear_screen()
                     dates = wl.get_list_of_dates()
@@ -790,7 +941,26 @@ if __name__ == "__main__":
                     print("Press Enter/Return to continue.")
                     input()
 
-                # Lookup by search term 
+                elif lookup_type == "4":
+                    wl.clear_screen()
+                    times = wl.get_list_of_times()
+                    wl.display_time_selection_prompt(times)
+                    time_number = wl.ask_for_input()
+                    while not wl.validate_time_number(time_number):
+                        wl.clear_screen()
+                        print("That was not a valid time. Try again.")
+                        wl.display_time_selection_prompt(times)
+                        time_number = wl.ask_for_input()
+                    
+                    wl.clear_screen()
+                    tasks = wl.get_tasks_for_time(time_number)
+                    wl.show_report_for_tasks(tasks)
+
+                    print("Press Enter/Return to continue.")
+                    input()
+
+
+                # Lookup by search term
                 elif lookup_type == "3":
                     wl.clear_screen()
                     wl.display_search_prompt()
@@ -807,13 +977,17 @@ if __name__ == "__main__":
                         print("Press Enter/Return to continue.")
                         input()
 
+
                 else:
                     # This should never occur.
-                    print("ERROR: Lookup type is broken.")
-            
+                    wl.clear_screen()
+                    print("ERROR: Something went wrong with the lookup.")
+                    print("")
+                    print("Press Enter/Return to continue.")
+                    input()
+
             # Quit
             else:
+                wl.clear_screen()
                 print("Thanks for using the task worklog!")
                 keep_going = False
-
-
