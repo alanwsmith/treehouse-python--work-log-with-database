@@ -18,6 +18,12 @@ The specifications for the project are found at:
 
     https://teamtreehouse.com/projects/work-log-with-a-database
 
+One spec is for:
+
+> As a user of the script, if finding by employee, I should be allowed to enter employee name and then be presented with entries with that employee as their creator. 
+
+I setup a list of employees to choose from instead of a free form text field. This reduces potential problems with mis-spellings. 
+
 
 PEP8
 ----
