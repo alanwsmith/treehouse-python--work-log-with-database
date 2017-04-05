@@ -954,9 +954,7 @@ if __name__ == "__main__":
                     
                     wl.clear_screen()
                     tasks = wl.get_tasks_for_time(time_number)
-
-                    print("TODO: Finish time lookup")
-
+                    wl.show_report_for_tasks(tasks)
 
                     print("Press Enter/Return to continue.")
                     input()
